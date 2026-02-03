@@ -1857,8 +1857,23 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
   text-align: center;
 }
 
+.visit-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+  border-radius: 26px;
+  background: radial-gradient(circle at top, rgba(56, 189, 248, 0.4), rgba(14, 165, 233, 0.2));
+  box-shadow:
+    0 10px 40px rgba(14, 116, 144, 0.35),
+    inset 0 1px 6px rgba(255, 255, 255, 0.35);
+}
+
 .visit-logo img {
-  height: 64px;
+  height: 56px;
+  width: 56px;
 }
 
 .visit-tagline {
