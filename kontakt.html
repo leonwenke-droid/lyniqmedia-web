@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LYNIQ Media – Kontakt. Kostenloses Erstgespräch buchen." />
+  <title>Kontakt – LYNIQ Media</title>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container">
+      <a href="index.html" class="logo" aria-label="LYNIQ Media Startseite">
+        <img src="assets/logo.png" alt="LYNIQ Media" class="logo-img" />
+      </a>
+      <button type="button" class="nav-toggle" aria-label="Menü öffnen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="services.html">Leistungen</a></li>
+        <li><a href="ablauf.html">Ablauf</a></li>
+        <li><a href="ergebnisse.html">Ergebnisse</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="kontakt.html" class="btn btn-primary btn-nav">Erstgespräch buchen</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <section class="section section-contact">
+      <div class="container contact-inner">
+        <h1 class="section-title">Bereit für ein skalierbares Unternehmen?</h1>
+        <p class="contact-text">
+          Buchen Sie Ihr kostenloses Erstgespräch. Wir besprechen Ihre Ziele und nächsten Schritte.
+        </p>
+        <div class="contact-cta-wrap">
+          <a href="#contact-form" class="btn btn-primary btn-cta-large">Kostenloses Erstgespräch buchen</a>
+        </div>
+        <form id="contact-form" class="contact-form" action="#" method="post">
+          <div class="form-row">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Ihr Name" />
+          </div>
+          <div class="form-row">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" required placeholder="sie@unternehmen.de" />
+          </div>
+          <div class="form-row">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" rows="4" required placeholder="Worum geht es? Was möchten Sie erreichen?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-submit">Nachricht senden</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo footer-logo">
+          <img src="assets/logo.png" alt="LYNIQ Media" class="logo-img" />
+        </a>
+        <p class="footer-tagline">Die Zukunft beginnt hier.</p>
+      </div>
+      <div class="footer-nav-block">
+        <h4 class="footer-heading">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="services.html">Leistungen</a></li>
+          <li><a href="ablauf.html">Ablauf</a></li>
+          <li><a href="ergebnisse.html">Ergebnisse</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="karriere.html">Karriere</a></li>
+        </ul>
+      </div>
+      <div class="footer-legal-block">
+        <h4 class="footer-heading">Rechtliches</h4>
+        <ul class="footer-links">
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+          <li><a href="agb.html">AGB</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p class="footer-copy">© 2024 LYNIQ Media. Alle Rechte vorbehalten.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
