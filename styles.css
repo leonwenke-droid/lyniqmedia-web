@@ -129,8 +129,13 @@ ul {
 }
 
 .logo-img {
-  height: 36px;
+  height: 48px;
   width: auto;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover .logo-img {
+  transform: scale(1.05);
 }
 
 .nav-toggle {
@@ -358,6 +363,81 @@ ul {
 
 .hero-scroll svg {
   display: block;
+}
+
+/* Scroll-Reveal: Effekte beim Runterscrollen */
+body.scroll-reveal-ready .section {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+body.scroll-reveal-ready .section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Karten starten unsichtbar, erscheinen mit Stagger wenn Sektion sichtbar */
+body.scroll-reveal-ready .section .stat-card,
+body.scroll-reveal-ready .section .problem-card,
+body.scroll-reveal-ready .section .service-card,
+body.scroll-reveal-ready .section .work-card,
+body.scroll-reveal-ready .section .process-step {
+  opacity: 0;
+}
+
+body.scroll-reveal-ready .section.is-visible .stat-card,
+body.scroll-reveal-ready .section.is-visible .problem-card,
+body.scroll-reveal-ready .section.is-visible .service-card,
+body.scroll-reveal-ready .section.is-visible .work-card {
+  animation: cardReveal 0.6s ease-out forwards;
+}
+
+body.scroll-reveal-ready .section.is-visible .stats-grid .stat-card:nth-child(1) { animation-delay: 0.05s; }
+body.scroll-reveal-ready .section.is-visible .stats-grid .stat-card:nth-child(2) { animation-delay: 0.15s; }
+body.scroll-reveal-ready .section.is-visible .stats-grid .stat-card:nth-child(3) { animation-delay: 0.25s; }
+body.scroll-reveal-ready .section.is-visible .stats-grid .stat-card:nth-child(4) { animation-delay: 0.35s; }
+
+body.scroll-reveal-ready .section.is-visible .problem-grid .problem-card:nth-child(1) { animation-delay: 0.05s; }
+body.scroll-reveal-ready .section.is-visible .problem-grid .problem-card:nth-child(2) { animation-delay: 0.15s; }
+body.scroll-reveal-ready .section.is-visible .problem-grid .problem-card:nth-child(3) { animation-delay: 0.25s; }
+
+body.scroll-reveal-ready .section.is-visible .services-grid .service-card:nth-child(1) { animation-delay: 0.08s; }
+body.scroll-reveal-ready .section.is-visible .services-grid .service-card:nth-child(2) { animation-delay: 0.18s; }
+body.scroll-reveal-ready .section.is-visible .services-grid .service-card:nth-child(3) { animation-delay: 0.28s; }
+
+body.scroll-reveal-ready .section.is-visible .work-grid .work-card:nth-child(1) { animation-delay: 0.08s; }
+body.scroll-reveal-ready .section.is-visible .work-grid .work-card:nth-child(2) { animation-delay: 0.18s; }
+
+body.scroll-reveal-ready .section.is-visible .process-step { animation: cardReveal 0.6s ease-out forwards; }
+body.scroll-reveal-ready .section.is-visible .process-steps .process-step:nth-child(1) { animation-delay: 0.1s; }
+body.scroll-reveal-ready .section.is-visible .process-steps .process-step:nth-child(2) { animation-delay: 0.25s; }
+body.scroll-reveal-ready .section.is-visible .process-steps .process-step:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.scroll-reveal-ready .section,
+  body.scroll-reveal-ready .section .stat-card,
+  body.scroll-reveal-ready .section .problem-card,
+  body.scroll-reveal-ready .section .service-card,
+  body.scroll-reveal-ready .section .work-card,
+  body.scroll-reveal-ready .section .process-step {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
 }
 
 /* Sections */
@@ -1524,7 +1604,13 @@ ul {
 }
 
 .footer-logo .logo-img {
-  height: 28px;
+  height: 38px;
+  width: auto;
+  transition: transform 0.2s ease;
+}
+
+.footer-logo:hover .logo-img {
+  transform: scale(1.05);
 }
 
 .footer-tagline {
@@ -2100,7 +2186,11 @@ ul {
   }
 
   .logo-img {
-    height: 28px;
+    height: 36px;
+  }
+
+  .footer-logo .logo-img {
+    height: 32px;
   }
 
   .hero-title {
