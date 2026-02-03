@@ -164,6 +164,46 @@
       </div>
     </section>
 
+    <!-- Demo: AI Voice Agent -->
+    <section id="demo" class="section section-demo">
+      <div class="container demo-inner">
+        <span class="demo-badge" aria-hidden="true">
+          <svg class="demo-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Telefon Agent
+        </span>
+        <h2 class="demo-title">Testen Sie unseren <span class="section-title-accent">AI Voice Agent</span></h2>
+        <p class="demo-text">Erleben Sie die Zukunft der Kundeninteraktion! Geben Sie Ihre Telefonnummer ein und unser intelligenter KI Voice Agent ruft Sie innerhalb weniger Minuten an. Kostenlos und unverbindlich.</p>
+        <div class="demo-phone-wrap">
+          <div class="demo-phone-mockup" role="img" aria-hidden="true">
+            <!-- iPhone 15 Style: Titan-Optik, Dynamic Island, Seitentasten, Home-Indicator -->
+            <div class="demo-phone-frame">
+              <span class="demo-phone-btn demo-phone-btn--silent" aria-hidden="true"></span>
+              <span class="demo-phone-btn demo-phone-btn--vol-up" aria-hidden="true"></span>
+              <span class="demo-phone-btn demo-phone-btn--vol-down" aria-hidden="true"></span>
+              <span class="demo-phone-btn demo-phone-btn--power" aria-hidden="true"></span>
+              <div class="demo-phone-dynamic-island" aria-hidden="true">
+                <span class="demo-phone-island-cutout" aria-hidden="true"></span>
+              </div>
+              <div class="demo-phone-screen">
+                <!-- n8n Webhook-URL eintragen: data-n8n-webhook="https://your-n8n.com/webhook/..." -->
+                <form id="demo-voice-form" class="demo-form" data-n8n-webhook="https://n8n.srv881499.hstgr.cloud/webhook/5c735106-48dd-44dd-841f-ff5ccc212448" action="#" method="post">
+                <p class="demo-form-headline">
+                  <span class="demo-form-check" aria-hidden="true"></span>
+                  Testen Sie unseren AI Voice Agent
+                </p>
+                <label for="demo-phone" class="demo-form-label">Telefonnummer</label>
+                <input type="tel" id="demo-phone" name="phone" class="demo-form-input" placeholder="+49 123456789" required />
+                <p class="demo-form-hint">Bitte geben Sie + und die Ländervorwahl an!</p>
+                <button type="submit" class="demo-form-submit">Absenden</button>
+              </form>
+              <div class="demo-phone-home-indicator" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Der Weg zur Automatisierung -->
     <section id="weg" class="section section-process">
       <div class="container">
@@ -250,28 +290,64 @@
         <div class="faq-list">
           <div class="faq-item">
             <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-1" id="faq-q-1">
-              <span>Wie kann Automatisierung meinem Unternehmen helfen?</span>
+              <span>Wie schnell ist das System einsatzbereit?</span>
               <span class="faq-icon" aria-hidden="true"></span>
             </button>
             <div class="faq-answer" id="faq-1" role="region" aria-labelledby="faq-q-1">
-              <p>Automatisierung kann Betriebskosten senken, menschliche Fehler minimieren, die Produktivität steigern und Ihrem Team ermöglichen, sich auf strategische Aufgaben statt auf Routinearbeiten zu konzentrieren.</p>
+              <p>Einfache Automatisierungen sind oft innerhalb weniger Tage live. Komplexere Lösungen (z. B. KI-Telefon-Assistent, mehrere Workflows) planen wir typischerweise in 2–3 Wochen – abhängig von Ihren Anforderungen und der Integration in bestehende Systeme.</p>
             </div>
           </div>
           <div class="faq-item">
             <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-2" id="faq-q-2">
-              <span>Welche Branchen profitieren am meisten?</span>
+              <span>Kann ich jederzeit eingreifen oder anpassen?</span>
               <span class="faq-icon" aria-hidden="true"></span>
             </button>
             <div class="faq-answer" id="faq-2" role="region" aria-labelledby="faq-q-2">
-              <p>Unternehmen aller Größen und Branchen können profitieren. Ob kleiner Online-Shop, mittelständisches B2B-Unternehmen oder großer Konzern – unsere KI-Tools werden auf Ihre spezifischen Bedürfnisse zugeschnitten.</p>
+              <p>Ja. Sie behalten die volle Kontrolle: Workflows und Assistenten lassen sich anpassen, Pausieren oder erweitern. Wir übergeben Ihnen nach dem Setup die nötigen Zugänge und schulen Ihr Team, sodass Sie selbstständig nachsteuern können – oder wir übernehmen Anpassungen auf Wunsch.</p>
             </div>
           </div>
           <div class="faq-item">
             <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-3" id="faq-q-3">
-              <span>Wie lange dauert die Implementierung?</span>
+              <span>Wie wird Datenschutz sichergestellt?</span>
               <span class="faq-icon" aria-hidden="true"></span>
             </button>
             <div class="faq-answer" id="faq-3" role="region" aria-labelledby="faq-q-3">
+              <p>Wir arbeiten DSGVO-konform: Daten werden nach Ihren Vorgaben verarbeitet, Hosting erfolgt in der EU wo gewünscht, und wir schließen bei Bedarf Auftragsverarbeitungsverträge. Details finden Sie in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-4" id="faq-q-4">
+              <span>Für welche Unternehmensgrößen ist das sinnvoll?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer" id="faq-4" role="region" aria-labelledby="faq-q-4">
+              <p>Vor allem für den Mittelstand und wachsende Unternehmen: Sobald wiederkehrende Aufgaben (Anrufe, E-Mails, Termine, Datenübergaben) Zeit binden, lohnt sich Automatisierung. Ob kleines Team oder mehrere Abteilungen – wir skalieren die Lösung passend zu Ihrer Größe und Ihrem Budget.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-5" id="faq-q-5">
+              <span>Wie kann Automatisierung meinem Unternehmen helfen?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer" id="faq-5" role="region" aria-labelledby="faq-q-5">
+              <p>Automatisierung kann Betriebskosten senken, menschliche Fehler minimieren, die Produktivität steigern und Ihrem Team ermöglichen, sich auf strategische Aufgaben statt auf Routinearbeiten zu konzentrieren.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-6" id="faq-q-6">
+              <span>Welche Branchen profitieren am meisten?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer" id="faq-6" role="region" aria-labelledby="faq-q-6">
+              <p>Unternehmen aller Größen und Branchen können profitieren. Ob kleiner Online-Shop, mittelständisches B2B-Unternehmen oder großer Konzern – unsere KI-Tools werden auf Ihre spezifischen Bedürfnisse zugeschnitten.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-7" id="faq-q-7">
+              <span>Wie lange dauert die Implementierung?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer" id="faq-7" role="region" aria-labelledby="faq-q-7">
               <p>Einfache Automatisierungen können innerhalb weniger Tage eingesetzt werden, während komplexere Unternehmenslösungen 2-3 Wochen in Anspruch nehmen können.</p>
             </div>
           </div>
@@ -282,22 +358,33 @@
     <!-- CTA + Kontakt -->
     <section id="kontakt" class="section section-contact">
       <div class="container contact-inner">
-        <h2 class="section-title">Bereit für ein skalierbares Unternehmen?</h2>
+        <h2 class="section-title section-title--center">Bereit für ein skalierbares Unternehmen?</h2>
         <div class="contact-cta-wrap">
           <a href="kontakt.html" class="btn btn-primary btn-cta-large">Kostenloses Erstgespräch buchen</a>
         </div>
-        <form id="contact-form" class="contact-form" action="#" method="post">
+        <!-- n8n Webhook-URL eintragen: data-n8n-webhook="https://your-n8n.com/webhook/..." -->
+        <form id="contact-form" class="contact-form" action="#" method="post" data-n8n-webhook="https://n8n.srv881499.hstgr.cloud/webhook/0674528e-5f4f-42c2-85d5-b38b6ad47f8a">
+          <div class="form-row-inline">
+            <div class="form-row">
+              <label for="vorname">Vorname</label>
+              <input type="text" id="vorname" name="vorname" required placeholder="Ihr Vorname" />
+            </div>
+            <div class="form-row">
+              <label for="nachname">Nachname</label>
+              <input type="text" id="nachname" name="nachname" required placeholder="Ihr Nachname" />
+            </div>
+          </div>
           <div class="form-row">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required placeholder="Ihr Name" />
+            <label for="unternehmen">Unternehmen</label>
+            <input type="text" id="unternehmen" name="unternehmen" required placeholder="Ihr Unternehmen" />
           </div>
           <div class="form-row">
             <label for="email">E-Mail</label>
             <input type="email" id="email" name="email" required placeholder="sie@unternehmen.de" />
           </div>
           <div class="form-row">
-            <label for="message">Nachricht</label>
-            <textarea id="message" name="message" rows="4" required placeholder="Worum geht es? Was möchten Sie erreichen?"></textarea>
+            <label for="nachricht">Nachricht</label>
+            <textarea id="nachricht" name="nachricht" rows="4" required placeholder="Worum geht es? Was möchten Sie erreichen?"></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-submit">Nachricht senden</button>
         </form>
