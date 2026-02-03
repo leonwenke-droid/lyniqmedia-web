@@ -1,6 +1,13 @@
 (function () {
   'use strict';
 
+  /* Aktuelles Jahr im Footer */
+  var yearEls = document.querySelectorAll('.current-year');
+  var year = new Date().getFullYear();
+  yearEls.forEach(function (el) {
+    el.textContent = year;
+  });
+
   var navToggle = document.querySelector('.nav-toggle');
   var navLinks = document.querySelector('.nav-links');
 
