@@ -1955,6 +1955,12 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
   color: var(--text-muted);
 }
 
+.visit-btn-full {
+  grid-column: 1 / -1;
+  width: min(100%, 260px);
+  justify-self: center;
+}
+
 .visit-footer {
   margin-top: 1rem;
   text-align: center;
