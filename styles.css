@@ -250,14 +250,51 @@ ul {
   opacity: 1;
 }
 
+/* Wellen: kompletter Bildschirm, animiert */
 .hero-bg::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100'%3E%3Cpath d='M0 50 Q100 20 200 50 T400 50' stroke='rgba(56,189,248,0.12)' fill='none' stroke-width='1'/%3E%3Cpath d='M0 60 Q100 30 200 60 T400 60' stroke='rgba(59,130,246,0.08)' fill='none' stroke-width='1'/%3E%3Cpath d='M0 40 Q150 70 300 40' stroke='rgba(56,189,248,0.1)' fill='none' stroke-width='1'/%3E%3C/svg%3E");
-  background-size: 120% 80px;
-  background-repeat: repeat;
+  left: -5vw;
+  top: -20%;
+  width: 110vw;
+  height: 140vh;
+  min-height: 140vmin;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0 100 Q300 40 600 100 T1200 100' stroke='rgba(56,189,248,0.14)' fill='none' stroke-width='1.5'/%3E%3Cpath d='M0 120 Q300 60 600 120 T1200 120' stroke='rgba(59,130,246,0.1)' fill='none' stroke-width='1'/%3E%3Cpath d='M0 80 Q300 140 600 80 T1200 80' stroke='rgba(56,189,248,0.1)' fill='none' stroke-width='1'/%3E%3Cpath d='M0 140 Q400 60 800 140 T1600 140' stroke='rgba(56,189,248,0.08)' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 100% 200px;
+  background-repeat: repeat-y;
+  background-position: 0 0;
   pointer-events: none;
+  animation: hero-waves 10s ease-in-out infinite;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  left: -5vw;
+  top: -20%;
+  width: 110vw;
+  height: 140vh;
+  min-height: 140vmin;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0 90 Q400 150 800 90 T1600 90' stroke='rgba(56,189,248,0.06)' fill='none' stroke-width='1'/%3E%3Cpath d='M0 110 Q250 50 600 110 T1200 110' stroke='rgba(59,130,246,0.07)' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 100% 180px;
+  background-repeat: repeat-y;
+  background-position: 0 20px;
+  pointer-events: none;
+  animation: hero-waves 14s ease-in-out infinite reverse;
+}
+
+@keyframes hero-waves {
+  0%, 100% { transform: translateY(0) translateX(0) scaleY(1); opacity: 1; }
+  25% { transform: translateY(-12px) translateX(2px) scaleY(1.01); opacity: 0.95; }
+  50% { transform: translateY(-24px) translateX(-1px) scaleY(1.02); opacity: 0.92; }
+  75% { transform: translateY(-12px) translateX(1px) scaleY(1.01); opacity: 0.95; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg::before,
+  .hero-bg::after {
+    animation: none;
+  }
 }
 
 .hero-inner {
@@ -593,6 +630,8 @@ body.scroll-reveal-ready .section.is-visible .process-steps .process-step:nth-ch
   max-width: 960px;
   margin-left: auto;
   margin-right: auto;
+  list-style: none;
+  padding: 0;
 }
 
 .problem-card {
@@ -609,26 +648,37 @@ body.scroll-reveal-ready .section.is-visible .process-steps .process-step:nth-ch
 }
 
 .problem-icon {
-  display: block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.problem-icon svg {
+  width: 28px;
+  height: 28px;
 }
 
 .problem-icon--red {
-  background: #ef4444;
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.25);
 }
 
 .problem-icon--orange {
-  background: #f97316;
-  box-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.25);
 }
 
 .problem-icon--green {
-  background: #eab308;
-  box-shadow: 0 0 12px rgba(234, 179, 8, 0.5);
+  background: rgba(234, 179, 8, 0.15);
+  color: #eab308;
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.25);
 }
 
 .problem-card-title {
@@ -852,9 +902,9 @@ body.scroll-reveal-ready .section.is-visible .process-steps .process-step:nth-ch
   min-height: 480px;
 }
 
-/* iPhone-Mockup: Start links seitlich mit 3D, kommt beim Scroll nach vorne (längerer Effekt) */
+/* iPhone-Mockup: schlanker und länger (weniger chubby) */
 .demo-phone-mockup {
-  width: 300px;
+  width: 248px;
   max-width: 100%;
   transform-style: preserve-3d;
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
@@ -893,13 +943,13 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
   }
 }
 
-/* iPhone-Rahmen (iPhone 15 Pro – Titan-Optik) */
+/* iPhone-Rahmen (iPhone 15 Pro – schlanker, länger) */
 .demo-phone-frame {
   position: relative;
   width: 100%;
   background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 40%, #0d0d0d 100%);
-  border-radius: 50px;
-  padding: 12px;
+  border-radius: 46px;
+  padding: 10px;
   box-shadow:
     0 0 0 2px #333,
     0 0 0 4px #1a1a1a,
@@ -913,7 +963,7 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
   content: '';
   position: absolute;
   inset: 2px;
-  border-radius: 46px;
+  border-radius: 42px;
   background: linear-gradient(165deg, rgba(255,255,255,0.03) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
@@ -983,13 +1033,13 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
   opacity: 0.9;
 }
 
-/* Bildschirmbereich – weißer Hintergrund, dünner Rand */
+/* Bildschirmbereich – weißer Hintergrund, länger (schlankeres Verhältnis) */
 .demo-phone-screen {
   position: relative;
   background: #ffffff;
-  border-radius: 38px;
-  padding: 2.5rem 1.25rem 2.75rem;
-  min-height: 440px;
+  border-radius: 34px;
+  padding: 2.25rem 1rem 2.5rem;
+  min-height: 560px;
   border: 1px solid rgba(0, 0, 0, 0.12);
   overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
@@ -2239,11 +2289,11 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
   }
 
   .demo-phone-mockup {
-    width: 260px;
+    width: 228px;
   }
 
   .demo-phone-screen {
-    min-height: 380px;
+    min-height: 500px;
     padding: 1.5rem 1rem;
   }
 
@@ -2562,11 +2612,11 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
 
   .demo-phone-mockup {
     width: 100%;
-    max-width: 280px;
+    max-width: 260px;
   }
 
   .demo-phone-screen {
-    min-height: 360px;
+    min-height: 460px;
     padding: 1.25rem 1rem;
   }
 
