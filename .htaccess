@@ -1,0 +1,17 @@
+# URLs ohne .html: /kontakt statt /kontakt.html
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Aufrufe von *.html auf saubere URL umleiten (z.B. /kontakt.html -> /kontakt)
+  RewriteCond %{THE_REQUEST} \s/[^.]+\.html [NC]
+  RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+
+  # Bestehende Dateien/Ordner nicht umschreiben
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # /seite -> seite.html (ohne .html in der Adresszeile)
+  RewriteRule ^([^/]+)/?$ $1.html [L]
+</IfModule>
