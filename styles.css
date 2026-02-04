@@ -244,56 +244,55 @@ ul {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.15), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(59, 130, 246, 0.1), transparent);
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(56, 189, 248, 0.12), transparent 50%),
+    radial-gradient(ellipse 70% 50% at 85% 70%, rgba(59, 130, 246, 0.08), transparent 45%),
+    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(56, 189, 248, 0.06), transparent 40%);
   pointer-events: none;
-  opacity: 1;
 }
 
-/* Wellen: kompletter Bildschirm, animiert */
+/* KI-Netzwerk: Hex-Grid mit Glow-Nodes */
 .hero-bg::before {
   content: '';
   position: absolute;
-  left: -5vw;
-  top: -20%;
-  width: 110vw;
-  height: 140vh;
-  min-height: 140vmin;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0 100 Q300 40 600 100 T1200 100' stroke='rgba(56,189,248,0.14)' fill='none' stroke-width='1.5'/%3E%3Cpath d='M0 120 Q300 60 600 120 T1200 120' stroke='rgba(59,130,246,0.1)' fill='none' stroke-width='1'/%3E%3Cpath d='M0 80 Q300 140 600 80 T1200 80' stroke='rgba(56,189,248,0.1)' fill='none' stroke-width='1'/%3E%3Cpath d='M0 140 Q400 60 800 140 T1600 140' stroke='rgba(56,189,248,0.08)' fill='none' stroke-width='1'/%3E%3C/svg%3E");
-  background-size: 100% 200px;
-  background-repeat: repeat-y;
-  background-position: 0 0;
-  pointer-events: none;
-  animation: hero-waves 10s ease-in-out infinite;
+  inset: -20%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='gn' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2338bdf8' stop-opacity='.95'/%3E%3Cstop offset='100%25' stop-color='%2360a5fa' stop-opacity='.5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke='%2338bdf8' stroke-opacity='.2' stroke-width='.7' fill='none' stroke-dasharray='4 6'%3E%3Cpath d='M50 40 h75 M90 40 v65 M125 40 v65 M160 40 v65 M205 72 h75 M240 72 v65 M275 72 v65 M310 105 h75 M50 175 h75 M90 175 v65 M160 175 v65 M205 207 h75 M240 207 v65 M310 240 h45 M50 310 h75 M125 310 v45 M205 342 h75 M275 342 v45'/%3E%3Cpath d='M50 40 L125 105 M90 105 L160 40 M160 175 L240 105 M205 240 L275 175 M240 282 L310 207'/%3E%3C/g%3E%3Cg%3E%3Ccircle cx='90' cy='40' r='5' fill='%2338bdf8' fill-opacity='.12'/%3E%3Ccircle cx='90' cy='40' r='2.5' fill='url(%23gn)'/%3E%3Ccircle cx='170' cy='40' r='5.5' fill='%2338bdf8' fill-opacity='.1'/%3E%3Ccircle cx='170' cy='40' r='2.8' fill='url(%23gn)'/%3E%3Ccircle cx='250' cy='72' r='4.5' fill='%2338bdf8' fill-opacity='.14'/%3E%3Ccircle cx='250' cy='72' r='2.2' fill='url(%23gn)'/%3E%3Ccircle cx='330' cy='105' r='5' fill='%2338bdf8' fill-opacity='.11'/%3E%3Ccircle cx='330' cy='105' r='2.6' fill='url(%23gn)'/%3E%3Ccircle cx='90' cy='175' r='5' fill='%2338bdf8' fill-opacity='.13'/%3E%3Ccircle cx='90' cy='175' r='2.4' fill='url(%23gn)'/%3E%3Ccircle cx='170' cy='175' r='4.5' fill='%2338bdf8' fill-opacity='.1'/%3E%3Ccircle cx='170' cy='175' r='2.2' fill='url(%23gn)'/%3E%3Ccircle cx='250' cy='207' r='5.5' fill='%2338bdf8' fill-opacity='.12'/%3E%3Ccircle cx='250' cy='207' r='2.7' fill='url(%23gn)'/%3E%3Ccircle cx='330' cy='240' r='4.5' fill='%2338bdf8' fill-opacity='.11'/%3E%3Ccircle cx='330' cy='240' r='2.3' fill='url(%23gn)'/%3E%3Ccircle cx='130' cy='310' r='5' fill='%2338bdf8' fill-opacity='.1'/%3E%3Ccircle cx='130' cy='310' r='2.5' fill='url(%23gn)'/%3E%3Ccircle cx='290' cy='342' r='4.5' fill='%2338bdf8' fill-opacity='.12'/%3E%3Ccircle cx='290' cy='342' r='2.2' fill='url(%23gn)'/%3E%3Ccircle cx='210' cy='240' r='5' fill='%2338bdf8' fill-opacity='.13'/%3E%3Ccircle cx='210' cy='240' r='2.4' fill='url(%23gn)'/%3E%3Ccircle cx='50' cy='105' r='4' fill='%2338bdf8' fill-opacity='.09'/%3E%3Ccircle cx='50' cy='105' r='1.9' fill='url(%23gn)'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 420px 420px;
+  background-repeat: repeat;
+  opacity: 0.85;
+  animation: hero-network-flow 32s linear infinite;
 }
 
+/* Sekundäres Netzwerk-Layer */
 .hero-bg::after {
   content: '';
   position: absolute;
-  left: -5vw;
-  top: -20%;
-  width: 110vw;
-  height: 140vh;
-  min-height: 140vmin;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0 90 Q400 150 800 90 T1600 90' stroke='rgba(56,189,248,0.06)' fill='none' stroke-width='1'/%3E%3Cpath d='M0 110 Q250 50 600 110 T1200 110' stroke='rgba(59,130,246,0.07)' fill='none' stroke-width='1'/%3E%3C/svg%3E");
-  background-size: 100% 180px;
-  background-repeat: repeat-y;
-  background-position: 0 20px;
-  pointer-events: none;
-  animation: hero-waves 14s ease-in-out infinite reverse;
+  inset: -25%;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'%3E%3Cg stroke='%237dd3fc' stroke-opacity='.16' stroke-width='.6' fill='none'%3E%3Cpath d='M0 80 L160 80 L320 80 M0 160 L160 160 L320 160 M0 240 L160 240 L320 240 M80 0 L80 160 L80 320 M160 0 L160 160 L160 320 M240 0 L240 160 L240 320'/%3E%3Cpath d='M40 40 L120 120 L200 40 L280 120 M40 200 L120 280 L200 200 L280 280' stroke-dasharray='2 4'/%3E%3C/g%3E%3Cg fill='%237dd3fc' fill-opacity='.32'%3E%3Ccircle cx='80' cy='80' r='1.2'/%3E%3Ccircle cx='160' cy='80' r='1.4'/%3E%3Ccircle cx='240' cy='80' r='1.1'/%3E%3Ccircle cx='80' cy='160' r='1.25'/%3E%3Ccircle cx='160' cy='160' r='1.45'/%3E%3Ccircle cx='240' cy='160' r='1.2'/%3E%3Ccircle cx='80' cy='240' r='1.05'/%3E%3Ccircle cx='160' cy='240' r='1.25'/%3E%3Ccircle cx='240' cy='240' r='1.35'/%3E%3Ccircle cx='120' cy='120' r='1'/%3E%3Ccircle cx='200' cy='120' r='1.15'/%3E%3Ccircle cx='120' cy='200' r='1.05'/%3E%3Ccircle cx='200' cy='200' r='1.25'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cg stroke='%235fbff9' stroke-opacity='.12' stroke-width='.42' fill='none'%3E%3Cpath d='M10 32 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M50 56 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M30 78 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z'/%3E%3Cpath d='M110 32 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M150 56 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M130 78 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z'/%3E%3Cpath d='M70 126 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M110 150 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M90 174 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z'/%3E%3C/g%3E%3Cg fill='%235fbff9' fill-opacity='.16'%3E%3Ccircle cx='70' cy='54' r='0.9'/%3E%3Ccircle cx='150' cy='54' r='1'/%3E%3Ccircle cx='90' cy='102' r='0.85'/%3E%3Ccircle cx='170' cy='102' r='0.95'/%3E%3Ccircle cx='110' cy='150' r='0.9'/%3E%3Ccircle cx='190' cy='150' r='0.95'/%3E%3Ccircle cx='130' cy='198' r='0.85'/%3E%3Ccircle cx='50' cy='198' r='0.9'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 360px 360px, 260px 230px;
+  background-repeat: repeat, repeat;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  animation: hero-network-flow-alt 42s linear infinite reverse;
 }
 
-@keyframes hero-waves {
-  0%, 100% { transform: translateY(0) translateX(0) scaleY(1); opacity: 1; }
-  25% { transform: translateY(-12px) translateX(2px) scaleY(1.01); opacity: 0.95; }
-  50% { transform: translateY(-24px) translateX(-1px) scaleY(1.02); opacity: 0.92; }
-  75% { transform: translateY(-12px) translateX(1px) scaleY(1.01); opacity: 0.95; }
+@keyframes hero-network-flow {
+  0% { background-position: 0 0; }
+  100% { background-position: 420px 420px; }
+}
+
+@keyframes hero-network-flow-alt {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: -360px -360px, 240px 200px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-bg::before,
   .hero-bg::after {
     animation: none;
+    transform: none;
+    background-position: 0 0;
   }
 }
 
