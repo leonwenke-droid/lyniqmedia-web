@@ -244,55 +244,66 @@ ul {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(56, 189, 248, 0.12), transparent 50%),
-    radial-gradient(ellipse 70% 50% at 85% 70%, rgba(59, 130, 246, 0.08), transparent 45%),
-    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(56, 189, 248, 0.06), transparent 40%);
+    radial-gradient(ellipse 90% 60% at 50% -15%, rgba(56, 189, 248, 0.18), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 80% 70%, rgba(59, 130, 246, 0.12), transparent 45%),
+    radial-gradient(circle at 18% 78%, rgba(37, 99, 235, 0.1), transparent 52%),
+    radial-gradient(circle at 82% 82%, rgba(56, 189, 248, 0.08), transparent 48%),
+    linear-gradient(190deg, rgba(5, 10, 20, 0.98) 0%, rgba(7, 14, 28, 0.86) 45%, rgba(6, 10, 20, 0.96) 100%);
+  overflow: hidden;
   pointer-events: none;
 }
 
-/* KI-Netzwerk: Hex-Grid mit Glow-Nodes */
-.hero-bg::before {
-  content: '';
+.hero-mesh {
   position: absolute;
-  inset: -20%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='gn' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2338bdf8' stop-opacity='.95'/%3E%3Cstop offset='100%25' stop-color='%2360a5fa' stop-opacity='.5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke='%2338bdf8' stroke-opacity='.2' stroke-width='.7' fill='none' stroke-dasharray='4 6'%3E%3Cpath d='M50 40 h75 M90 40 v65 M125 40 v65 M160 40 v65 M205 72 h75 M240 72 v65 M275 72 v65 M310 105 h75 M50 175 h75 M90 175 v65 M160 175 v65 M205 207 h75 M240 207 v65 M310 240 h45 M50 310 h75 M125 310 v45 M205 342 h75 M275 342 v45'/%3E%3Cpath d='M50 40 L125 105 M90 105 L160 40 M160 175 L240 105 M205 240 L275 175 M240 282 L310 207'/%3E%3C/g%3E%3Cg%3E%3Ccircle cx='90' cy='40' r='5' fill='%2338bdf8' fill-opacity='.12'/%3E%3Ccircle cx='90' cy='40' r='2.5' fill='url(%23gn)'/%3E%3Ccircle cx='170' cy='40' r='5.5' fill='%2338bdf8' fill-opacity='.1'/%3E%3Ccircle cx='170' cy='40' r='2.8' fill='url(%23gn)'/%3E%3Ccircle cx='250' cy='72' r='4.5' fill='%2338bdf8' fill-opacity='.14'/%3E%3Ccircle cx='250' cy='72' r='2.2' fill='url(%23gn)'/%3E%3Ccircle cx='330' cy='105' r='5' fill='%2338bdf8' fill-opacity='.11'/%3E%3Ccircle cx='330' cy='105' r='2.6' fill='url(%23gn)'/%3E%3Ccircle cx='90' cy='175' r='5' fill='%2338bdf8' fill-opacity='.13'/%3E%3Ccircle cx='90' cy='175' r='2.4' fill='url(%23gn)'/%3E%3Ccircle cx='170' cy='175' r='4.5' fill='%2338bdf8' fill-opacity='.1'/%3E%3Ccircle cx='170' cy='175' r='2.2' fill='url(%23gn)'/%3E%3Ccircle cx='250' cy='207' r='5.5' fill='%2338bdf8' fill-opacity='.12'/%3E%3Ccircle cx='250' cy='207' r='2.7' fill='url(%23gn)'/%3E%3Ccircle cx='330' cy='240' r='4.5' fill='%2338bdf8' fill-opacity='.11'/%3E%3Ccircle cx='330' cy='240' r='2.3' fill='url(%23gn)'/%3E%3Ccircle cx='130' cy='310' r='5' fill='%2338bdf8' fill-opacity='.1'/%3E%3Ccircle cx='130' cy='310' r='2.5' fill='url(%23gn)'/%3E%3Ccircle cx='290' cy='342' r='4.5' fill='%2338bdf8' fill-opacity='.12'/%3E%3Ccircle cx='290' cy='342' r='2.2' fill='url(%23gn)'/%3E%3Ccircle cx='210' cy='240' r='5' fill='%2338bdf8' fill-opacity='.13'/%3E%3Ccircle cx='210' cy='240' r='2.4' fill='url(%23gn)'/%3E%3Ccircle cx='50' cy='105' r='4' fill='%2338bdf8' fill-opacity='.09'/%3E%3Ccircle cx='50' cy='105' r='1.9' fill='url(%23gn)'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 420px 420px;
-  background-repeat: repeat;
-  opacity: 0.85;
-  animation: hero-network-flow 32s linear infinite;
+  inset: -14% -8% -12% -8%;
+  pointer-events: none;
+  filter: drop-shadow(0 35px 55px rgba(14, 116, 144, 0.35));
 }
 
-/* Sekundäres Netzwerk-Layer */
-.hero-bg::after {
+.hero-mesh::before {
   content: '';
   position: absolute;
-  inset: -25%;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'%3E%3Cg stroke='%237dd3fc' stroke-opacity='.16' stroke-width='.6' fill='none'%3E%3Cpath d='M0 80 L160 80 L320 80 M0 160 L160 160 L320 160 M0 240 L160 240 L320 240 M80 0 L80 160 L80 320 M160 0 L160 160 L160 320 M240 0 L240 160 L240 320'/%3E%3Cpath d='M40 40 L120 120 L200 40 L280 120 M40 200 L120 280 L200 200 L280 280' stroke-dasharray='2 4'/%3E%3C/g%3E%3Cg fill='%237dd3fc' fill-opacity='.32'%3E%3Ccircle cx='80' cy='80' r='1.2'/%3E%3Ccircle cx='160' cy='80' r='1.4'/%3E%3Ccircle cx='240' cy='80' r='1.1'/%3E%3Ccircle cx='80' cy='160' r='1.25'/%3E%3Ccircle cx='160' cy='160' r='1.45'/%3E%3Ccircle cx='240' cy='160' r='1.2'/%3E%3Ccircle cx='80' cy='240' r='1.05'/%3E%3Ccircle cx='160' cy='240' r='1.25'/%3E%3Ccircle cx='240' cy='240' r='1.35'/%3E%3Ccircle cx='120' cy='120' r='1'/%3E%3Ccircle cx='200' cy='120' r='1.15'/%3E%3Ccircle cx='120' cy='200' r='1.05'/%3E%3Ccircle cx='200' cy='200' r='1.25'/%3E%3C/g%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cg stroke='%235fbff9' stroke-opacity='.12' stroke-width='.42' fill='none'%3E%3Cpath d='M10 32 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M50 56 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M30 78 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z'/%3E%3Cpath d='M110 32 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M150 56 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M130 78 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z'/%3E%3Cpath d='M70 126 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M110 150 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z M90 174 l20 -12 l20 12 l0 22 l-20 12 l-20 -12 z'/%3E%3C/g%3E%3Cg fill='%235fbff9' fill-opacity='.16'%3E%3Ccircle cx='70' cy='54' r='0.9'/%3E%3Ccircle cx='150' cy='54' r='1'/%3E%3Ccircle cx='90' cy='102' r='0.85'/%3E%3Ccircle cx='170' cy='102' r='0.95'/%3E%3Ccircle cx='110' cy='150' r='0.9'/%3E%3Ccircle cx='190' cy='150' r='0.95'/%3E%3Ccircle cx='130' cy='198' r='0.85'/%3E%3Ccircle cx='50' cy='198' r='0.9'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 360px 360px, 260px 230px;
-  background-repeat: repeat, repeat;
-  opacity: 0.6;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%201200%20600'%20preserveAspectRatio%3D'none'%3E%3Cdefs%3E%3ClinearGradient%20id%3D'meshStroke'%20x1%3D'0%25'%20y1%3D'0%25'%20x2%3D'100%25'%20y2%3D'100%25'%3E%3Cstop%20offset%3D'0%25'%20stop-color%3D'rgba(96,165,250,0.8)'%20/%3E%3Cstop%20offset%3D'65%25'%20stop-color%3D'rgba(59,130,246,0.65)'%20/%3E%3Cstop%20offset%3D'100%25'%20stop-color%3D'rgba(37,99,235,0.45)'%20/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg%20fill%3D'none'%20stroke%3D'url(%23meshStroke)'%20stroke-width%3D'1.4'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M0%20420%20L120%20360%20240%20405%20360%20340%20480%20418%20600%20352%20720%20410%20840%20350%20960%20398%201080%20348%201200%20388'%20/%3E%3Cpath%20d%3D'M0%20500%20L160%20438%20320%20520%20480%20450%20640%20532%20800%20472%20960%20520%201120%20468%201200%20502'%20/%3E%3Cpath%20d%3D'M0%20320%20L150%20260%20300%20320%20450%20278%20600%20328%20750%20286%20900%20330%201050%20284%201200%20320'%20/%3E%3Cpath%20d%3D'M0%20230%20L200%20176%20400%20238%20600%20198%20800%20248%201000%20206%201200%20252'%20/%3E%3C/g%3E%3Cg%20fill%3D'none'%20stroke%3D'rgba(56,189,248,0.22)'%20stroke-width%3D'0.9'%20stroke-linecap%3D'round'%3E%3Cpath%20d%3D'M120%20360%20L160%20438%20240%20405%20L320%20520%20360%20340%20480%20450%20600%20328%20720%20410%20800%20472%20840%20350%20960%20398%201080%20468%201120%20468%201200%20388'%20/%3E%3Cpath%20d%3D'M0%20320%20L160%20438%20320%20520%20480%20450%20640%20532%20800%20472%20960%20520%201120%20468%201200%20502'%20/%3E%3Cpath%20d%3D'M0%20420%20L200%20176%20400%20238%20600%20198%20800%20248%201000%20206%201200%20252'%20/%3E%3C/g%3E%3Cg%20fill%3D'rgba(125,211,252,0.7)'%3E%3Ccircle%20cx%3D'120'%20cy%3D'360'%20r%3D'5.2'/%3E%3Ccircle%20cx%3D'240'%20cy%3D'405'%20r%3D'4.8'/%3E%3Ccircle%20cx%3D'360'%20cy%3D'340'%20r%3D'5'/%3E%3Ccircle%20cx%3D'480'%20cy%3D'418'%20r%3D'5.1'/%3E%3Ccircle%20cx%3D'600'%20cy%3D'352'%20r%3D'4.9'/%3E%3Ccircle%20cx%3D'720'%20cy%3D'410'%20r%3D'5'/%3E%3Ccircle%20cx%3D'840'%20cy%3D'350'%20r%3D'5.1'/%3E%3Ccircle%20cx%3D'960'%20cy%3D'398'%20r%3D'4.7'/%3E%3Ccircle%20cx%3D'1080'%20cy%3D'348'%20r%3D'4.8'/%3E%3Ccircle%20cx%3D'160'%20cy%3D'438'%20r%3D'4.4'/%3E%3Ccircle%20cx%3D'320'%20cy%3D'520'%20r%3D'5.3'/%3E%3Ccircle%20cx%3D'480'%20cy%3D'450'%20r%3D'5'/%3E%3Ccircle%20cx%3D'640'%20cy%3D'532'%20r%3D'5.4'/%3E%3Ccircle%20cx%3D'800'%20cy%3D'472'%20r%3D'5'/%3E%3Ccircle%20cx%3D'960'%20cy%3D'520'%20r%3D'5.2'/%3E%3Ccircle%20cx%3D'1120'%20cy%3D'468'%20r%3D'4.6'/%3E%3Ccircle%20cx%3D'200'%20cy%3D'176'%20r%3D'4'/%3E%3Ccircle%20cx%3D'400'%20cy%3D'238'%20r%3D'4.4'/%3E%3Ccircle%20cx%3D'600'%20cy%3D'198'%20r%3D'4.2'/%3E%3Ccircle%20cx%3D'800'%20cy%3D'248'%20r%3D'4.6'/%3E%3Ccircle%20cx%3D'1000'%20cy%3D'206'%20r%3D'4.2'/%3E%3C/g%3E%3Cg%20fill%3D'rgba(56,189,248,0.18)'%3E%3Ccircle%20cx%3D'60'%20cy%3D'350'%20r%3D'3'/%3E%3Ccircle%20cx%3D'300'%20cy%3D'360'%20r%3D'3.2'/%3E%3Ccircle%20cx%3D'540'%20cy%3D'340'%20r%3D'3.1'/%3E%3Ccircle%20cx%3D'780'%20cy%3D'430'%20r%3D'3.3'/%3E%3Ccircle%20cx%3D'1020'%20cy%3D'380'%20r%3D'3.2'/%3E%3Ccircle%20cx%3D'1180'%20cy%3D'430'%20r%3D'3.1'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 1250px auto;
+  background-repeat: repeat-x;
+  opacity: 0.88;
   mix-blend-mode: screen;
-  animation: hero-network-flow-alt 42s linear infinite reverse;
+  animation: hero-mesh-drift 28s linear infinite;
 }
 
-@keyframes hero-network-flow {
+.hero-mesh::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.35) 0, rgba(56, 189, 248, 0.35) 2.2px, transparent 55%),
+    radial-gradient(circle at 70% 35%, rgba(59, 130, 246, 0.28) 0, rgba(59, 130, 246, 0.28) 2px, transparent 55%),
+    radial-gradient(circle at 35% 65%, rgba(37, 99, 235, 0.25) 0, rgba(37, 99, 235, 0.25) 1.8px, transparent 55%),
+    radial-gradient(circle at 85% 78%, rgba(56, 189, 248, 0.22) 0, rgba(56, 189, 248, 0.22) 2.4px, transparent 55%);
+  background-size: 420px 300px, 520px 360px, 360px 260px, 540px 340px;
+  background-repeat: repeat;
+  opacity: 0.45;
+  mix-blend-mode: screen;
+  animation: hero-mesh-pulse 18s ease-in-out infinite alternate;
+}
+
+@keyframes hero-mesh-drift {
   0% { background-position: 0 0; }
-  100% { background-position: 420px 420px; }
+  100% { background-position: -650px 0; }
 }
 
-@keyframes hero-network-flow-alt {
-  0% { background-position: 0 0, 0 0; }
-  100% { background-position: -360px -360px, 240px 200px; }
+@keyframes hero-mesh-pulse {
+  0% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(1.03); }
+  100% { opacity: 0.35; transform: scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-bg::before,
-  .hero-bg::after {
+  .hero-mesh::before,
+  .hero-mesh::after {
     animation: none;
     transform: none;
-    background-position: 0 0;
   }
 }
 
