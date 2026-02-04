@@ -899,12 +899,12 @@ body.scroll-reveal-ready .section.is-visible .process-steps .process-step:nth-ch
   justify-content: center;
   align-items: center;
   perspective: 1400px;
-  min-height: 480px;
+  min-height: 500px;
 }
 
 /* iPhone-Mockup: schlanker und länger (weniger chubby) */
 .demo-phone-mockup {
-  width: 248px;
+  width: 280px;
   max-width: 100%;
   transform-style: preserve-3d;
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1033,13 +1033,13 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
   opacity: 0.9;
 }
 
-/* Bildschirmbereich – weißer Hintergrund, länger (schlankeres Verhältnis) */
+/* Bildschirmbereich – weißer Hintergrund */
 .demo-phone-screen {
   position: relative;
   background: #ffffff;
   border-radius: 34px;
-  padding: 2.25rem 1rem 2.5rem;
-  min-height: 500px;
+  padding: 2.5rem 1rem 2.75rem;
+  min-height: 460px;
   border: 1px solid rgba(0, 0, 0, 0.12);
   overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
@@ -2456,12 +2456,12 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
   }
 
   .demo-phone-mockup {
-    width: 228px;
+    width: 250px;
   }
 
   .demo-phone-screen {
-    min-height: 500px;
-    padding: 1.5rem 1rem;
+    min-height: 430px;
+    padding: 1.75rem 1rem 2.25rem;
   }
 
   /* Process */
@@ -2779,12 +2779,12 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
 
   .demo-phone-mockup {
     width: 100%;
-    max-width: 260px;
+    max-width: 240px;
   }
 
   .demo-phone-screen {
-    min-height: 460px;
-    padding: 1.25rem 1rem;
+    min-height: 410px;
+    padding: 1.5rem 1rem 2rem;
   }
 
   .demo-form-submit {
