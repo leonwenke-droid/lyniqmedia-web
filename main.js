@@ -211,4 +211,153 @@
         });
     });
   }
+
+  /* KI-Chatbot Widget */
+  (function initChatbot() {
+    var chatbotWidget = document.getElementById('chatbot-widget');
+    var chatbotToggle = document.getElementById('chatbot-toggle');
+    var chatbotWindow = document.getElementById('chatbot-window');
+    var chatbotClose = document.getElementById('chatbot-close');
+    var chatbotForm = document.getElementById('chatbot-form');
+    var chatbotInput = document.getElementById('chatbot-input');
+    var chatbotMessages = document.getElementById('chatbot-messages');
+    var chatbotTyping = document.getElementById('chatbot-typing');
+    var chatbotSend = chatbotForm.querySelector('.chatbot-send');
+
+    if (!chatbotWidget || !chatbotToggle || !chatbotWindow) return;
+
+    var webhookUrl = chatbotWidget.getAttribute('data-n8n-webhook') || '';
+    var isOpen = false;
+    var messageHistory = [];
+
+    // Toggle Chat Window
+    function toggleChat() {
+      isOpen = !isOpen;
+      chatbotWidget.classList.toggle('is-open', isOpen);
+      chatbotToggle.setAttribute('aria-expanded', isOpen);
+      chatbotWindow.setAttribute('aria-hidden', !isOpen);
+      
+      if (isOpen) {
+        chatbotInput.focus();
+        // Scroll to bottom when opening
+        setTimeout(function() {
+          scrollToBottom();
+        }, 100);
+      }
+    }
+
+    chatbotToggle.addEventListener('click', toggleChat);
+    chatbotClose.addEventListener('click', toggleChat);
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isOpen) {
+        toggleChat();
+      }
+    });
+
+    // Add message to chat
+    function addMessage(text, isUser) {
+      var messageDiv = document.createElement('div');
+      messageDiv.className = 'chatbot-message chatbot-message--' + (isUser ? 'user' : 'bot');
+      
+      if (!isUser) {
+        var avatar = document.createElement('div');
+        avatar.className = 'chatbot-message-avatar';
+        avatar.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>';
+        messageDiv.appendChild(avatar);
+      }
+
+      var content = document.createElement('div');
+      content.className = 'chatbot-message-content';
+      var p = document.createElement('p');
+      p.textContent = text;
+      content.appendChild(p);
+      messageDiv.appendChild(content);
+
+      chatbotMessages.appendChild(messageDiv);
+      scrollToBottom();
+      
+      return messageDiv;
+    }
+
+    // Show typing indicator
+    function showTyping() {
+      chatbotTyping.classList.add('is-visible');
+      scrollToBottom();
+    }
+
+    function hideTyping() {
+      chatbotTyping.classList.remove('is-visible');
+    }
+
+    // Scroll to bottom
+    function scrollToBottom() {
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    // Send message to n8n
+    function sendMessage(text) {
+      if (!text.trim() || !webhookUrl) return;
+
+      // Add user message
+      addMessage(text, true);
+      messageHistory.push({ role: 'user', content: text });
+      chatbotInput.value = '';
+      chatbotSend.disabled = true;
+
+      // Show typing indicator
+      showTyping();
+
+      // Send to n8n webhook
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: text,
+          history: messageHistory.slice(-10) // Last 10 messages for context
+        })
+      })
+        .then(function(res) {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(function(data) {
+          hideTyping();
+          
+          // Handle response (adjust based on your n8n response format)
+          var responseText = data.response || data.message || data.text || 'Entschuldigung, ich konnte Ihre Nachricht nicht verarbeiten.';
+          
+          // Add bot response
+          addMessage(responseText, false);
+          messageHistory.push({ role: 'assistant', content: responseText });
+        })
+        .catch(function(error) {
+          hideTyping();
+          console.error('Chatbot error:', error);
+          addMessage('Entschuldigung, es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.', false);
+        })
+        .finally(function() {
+          chatbotSend.disabled = false;
+          chatbotInput.focus();
+        });
+    }
+
+    // Form submit
+    chatbotForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var text = chatbotInput.value.trim();
+      if (text) {
+        sendMessage(text);
+      }
+    });
+
+    // Allow Enter to send (Shift+Enter for new line if needed)
+    chatbotInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        chatbotForm.dispatchEvent(new Event('submit'));
+      }
+    });
+  })();
 })();
