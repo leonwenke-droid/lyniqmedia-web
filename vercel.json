@@ -5,7 +5,9 @@
     {"source": "/:path.html", "destination": "/:path", "permanent": true}
   ],
   "rewrites": [
+    {"source": "/author", "destination": "/api/gone"},
     {"source": "/author/:path*", "destination": "/api/gone"},
+    {"source": "/category", "destination": "/api/gone"},
     {"source": "/category/:path*", "destination": "/api/gone"}
   ]
 }
