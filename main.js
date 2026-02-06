@@ -320,13 +320,57 @@
       })
         .then(function(res) {
           if (!res.ok) throw new Error('Network response was not ok');
-          return res.json();
+          // Try to parse as JSON first, fallback to text
+          var contentType = res.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            return res.json();
+          } else {
+            return res.text().then(function(text) {
+              return { response: text };
+            });
+          }
         })
         .then(function(data) {
           hideTyping();
           
-          // Handle response (adjust based on your n8n response format)
-          var responseText = data.response || data.message || data.text || 'Entschuldigung, ich konnte Ihre Nachricht nicht verarbeiten.';
+          // Debug: Log the response to help troubleshoot
+          console.log('Chatbot response from n8n:', data);
+          
+          // Handle response from n8n "Respond to Webhook" Node
+          // Try multiple possible response formats
+          var responseText = '';
+          
+          if (typeof data === 'string') {
+            // Direct string response
+            responseText = data;
+          } else if (data && typeof data === 'object') {
+            // Object response - try common fields
+            responseText = data.response || 
+                          data.message || 
+                          data.text || 
+                          data.output ||
+                          data.data ||
+                          (data.body && (data.body.response || data.body.message || data.body.text)) ||
+                          (Array.isArray(data) && data.length > 0 ? (typeof data[0] === 'string' ? data[0] : JSON.stringify(data[0])) : '') ||
+                          '';
+            
+            // If still empty, try to stringify the whole object (last resort)
+            if (!responseText && Object.keys(data).length > 0) {
+              // Try to find any string value in the object
+              for (var key in data) {
+                if (typeof data[key] === 'string' && data[key].trim() !== '') {
+                  responseText = data[key];
+                  break;
+                }
+              }
+            }
+          }
+          
+          // Fallback if still empty
+          if (!responseText || responseText.trim() === '') {
+            responseText = 'Entschuldigung, ich konnte Ihre Nachricht nicht verarbeiten.';
+            console.warn('Chatbot: Could not parse response. Raw data:', data);
+          }
           
           // Add bot response
           addMessage(responseText, false);
