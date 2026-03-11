@@ -1,6 +1,58 @@
 (function () {
   'use strict';
 
+  /* Navbar Scroll-Effekt */
+  var navbar = document.querySelector('.header, nav, header');
+  if (navbar) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  }
+
+  /* Counter-Animation für Stats */
+  function animateCounter(el, target, duration, suffix, prefix) {
+    var start = performance.now();
+    var isDecimal = target % 1 !== 0;
+    prefix = prefix || '';
+
+    function update(currentTime) {
+      var elapsed = currentTime - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = eased * target;
+      el.textContent = prefix + (isDecimal ? current.toFixed(1) : Math.floor(current)) + (suffix || '');
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  var statsObserver = typeof IntersectionObserver !== 'undefined' && new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          entry.target.dataset.counted = 'true';
+          var target = parseFloat(entry.target.dataset.target);
+          var suffix = entry.target.dataset.suffix || '';
+          var prefix = entry.target.dataset.prefix || '';
+          if (!isNaN(target)) {
+            animateCounter(entry.target, target, 1800, suffix, prefix);
+          }
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  if (statsObserver) {
+    document.querySelectorAll('.stat-number[data-target]').forEach(function (el) {
+      statsObserver.observe(el);
+    });
+  }
+
   /* Aktuelles Jahr im Footer */
   var yearEls = document.querySelectorAll('.current-year');
   var year = new Date().getFullYear();
