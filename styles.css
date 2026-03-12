@@ -56,6 +56,15 @@ html {
   overflow-x: hidden;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
   margin: 0;
   font-family: var(--font);
@@ -84,6 +93,15 @@ body::before {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
 }
 
 img {
@@ -843,8 +861,8 @@ body.scroll-reveal-ready .section.is-visible .process-steps .process-step:nth-ch
 }
 
 .problem-card p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
   margin: 0;
 }
 
@@ -2419,6 +2437,26 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
   box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
 }
 
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.form-error {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: var(--radius);
+  color: #fca5a5;
+  font-size: 0.9rem;
+}
+
 .form-row textarea {
   resize: vertical;
   min-height: 100px;
@@ -3598,4 +3636,50 @@ body.scroll-reveal-ready .section-demo.is-visible .demo-phone-screen {
     opacity: 0;
     pointer-events: none;
   }
+}
+
+/* Cookie-Consent-Banner */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 1rem;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.cookie-banner-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cookie-banner-text {
+  flex: 1;
+  min-width: 200px;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.cookie-banner-text a {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+}
+
+.cookie-banner-text a:hover {
+  text-decoration: none;
+}
+
+.cookie-banner-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }

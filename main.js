@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* Navbar Scroll-Effekt */
   var navbar = document.querySelector('.header, nav, header');
   if (navbar) {
@@ -30,7 +32,7 @@
     requestAnimationFrame(update);
   }
 
-  var statsObserver = typeof IntersectionObserver !== 'undefined' && new IntersectionObserver(
+  var statsObserver = !prefersReducedMotion && typeof IntersectionObserver !== 'undefined' && new IntersectionObserver(
     function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting && !entry.target.dataset.counted) {
@@ -39,7 +41,7 @@
           var suffix = entry.target.dataset.suffix || '';
           var prefix = entry.target.dataset.prefix || '';
           if (!isNaN(target)) {
-            animateCounter(entry.target, target, 1800, suffix, prefix);
+            animateCounter(entry.target, target, prefersReducedMotion ? 0 : 1800, suffix, prefix);
           }
         }
       });
@@ -50,6 +52,13 @@
   if (statsObserver) {
     document.querySelectorAll('.stat-number[data-target]').forEach(function (el) {
       statsObserver.observe(el);
+    });
+  } else if (prefersReducedMotion) {
+    document.querySelectorAll('.stat-number[data-target]').forEach(function (el) {
+      var target = parseFloat(el.dataset.target);
+      var suffix = el.dataset.suffix || '';
+      var prefix = el.dataset.prefix || '';
+      if (!isNaN(target)) el.textContent = prefix + (target % 1 ? target.toFixed(1) : Math.floor(target)) + suffix;
     });
   }
 
@@ -82,7 +91,7 @@
 
     document.body.classList.add('scroll-reveal-ready');
 
-    if (typeof IntersectionObserver === 'undefined') {
+    if (typeof IntersectionObserver === 'undefined' || prefersReducedMotion) {
       sections.forEach(revealSection);
       return;
     }
@@ -150,7 +159,7 @@
       var input = demoForm.querySelector('input[name="phone"]');
       var submitBtn = demoForm.querySelector('.demo-form-submit');
       var phone = input && input.value ? input.value.trim() : '';
-      var webhookUrl = demoForm.getAttribute('data-n8n-webhook') || '';
+      var webhookUrl = demoForm.getAttribute('data-api') || demoForm.getAttribute('data-n8n-webhook') || '/api/webhook/demo-voice';
 
       if (!phone) {
         if (submitBtn) submitBtn.textContent = 'Bitte Nummer eingeben';
@@ -204,15 +213,32 @@
   /* Contact form – n8n Webhook */
   var contactForm = document.getElementById('contact-form');
   if (contactForm) {
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    function showFormError(msg) {
+      var errEl = document.getElementById('contact-form-error');
+      if (errEl) {
+        errEl.textContent = msg;
+        errEl.hidden = false;
+      }
+    }
+    function hideFormError() {
+      var errEl = document.getElementById('contact-form-error');
+      if (errEl) errEl.hidden = true;
+    }
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      hideFormError();
       var btn = contactForm.querySelector('.btn-submit');
-      var webhookUrl = contactForm.getAttribute('data-n8n-webhook') || '';
+      var webhookUrl = contactForm.getAttribute('data-api') || contactForm.getAttribute('data-n8n-webhook') || '/api/webhook/contact';
+      var honeypot = (contactForm.querySelector('[name="website_url"]') || {}).value || '';
       var vorname = (contactForm.querySelector('[name="vorname"]') || {}).value || '';
       var nachname = (contactForm.querySelector('[name="nachname"]') || {}).value || '';
       var unternehmen = (contactForm.querySelector('[name="unternehmen"]') || {}).value || '';
       var email = (contactForm.querySelector('[name="email"]') || {}).value || '';
       var nachricht = (contactForm.querySelector('[name="nachricht"]') || {}).value || '';
+
+      if (honeypot.trim()) { showFormError(''); return; }
+      if (!emailRegex.test(email.trim())) { showFormError('Bitte geben Sie eine gültige E-Mail-Adresse ein.'); return; }
 
       var originalText = btn ? btn.textContent : 'Nachricht senden';
       if (btn) {
@@ -246,12 +272,15 @@
           if (res.ok) {
             if (btn) btn.textContent = 'Nachricht gesendet';
             contactForm.reset();
+            hideFormError();
           } else {
             if (btn) btn.textContent = 'Fehler – bitte erneut versuchen';
+            showFormError('Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
           }
         })
         .catch(function () {
           if (btn) btn.textContent = 'Fehler – bitte erneut versuchen';
+          showFormError('Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
         })
         .finally(function () {
           if (btn) {
@@ -274,11 +303,11 @@
     var chatbotInput = document.getElementById('chatbot-input');
     var chatbotMessages = document.getElementById('chatbot-messages');
     var chatbotTyping = document.getElementById('chatbot-typing');
-    var chatbotSend = chatbotForm.querySelector('.chatbot-send');
+    var chatbotSend = chatbotForm ? chatbotForm.querySelector('.chatbot-send') : null;
 
-    if (!chatbotWidget || !chatbotToggle || !chatbotWindow) return;
+    if (!chatbotWidget || !chatbotToggle || !chatbotWindow || !chatbotForm || !chatbotSend) return;
 
-    var webhookUrl = chatbotWidget.getAttribute('data-n8n-webhook') || '';
+    var webhookUrl = chatbotWidget.getAttribute('data-api') || chatbotWidget.getAttribute('data-n8n-webhook') || '/api/webhook/chatbot';
     var isOpen = false;
     var messageHistory = [];
 
@@ -454,6 +483,27 @@
         e.preventDefault();
         chatbotForm.dispatchEvent(new Event('submit'));
       }
+    });
+  })();
+
+  /* Cookie-Consent-Banner (DSGVO) */
+  (function initCookieBanner() {
+    var key = 'lyniq_cookie_consent';
+    if (localStorage.getItem(key)) return;
+    var banner = document.createElement('div');
+    banner.id = 'cookie-banner';
+    banner.className = 'cookie-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-label', 'Cookie-Einstellungen');
+    banner.innerHTML = '<div class="cookie-banner-inner"><p class="cookie-banner-text">Wir nutzen Cookies, um die Website zu betreiben und Ihre Erfahrung zu verbessern. Technisch notwendige Cookies sind erforderlich. <a href="/datenschutz">Mehr erfahren</a></p><div class="cookie-banner-actions"><button type="button" class="btn btn-ghost cookie-btn-reject">Nur notwendige</button><button type="button" class="btn btn-primary cookie-btn-accept">Alle akzeptieren</button></div></div>';
+    document.body.appendChild(banner);
+    banner.querySelector('.cookie-btn-accept').addEventListener('click', function () {
+      localStorage.setItem(key, 'all');
+      banner.remove();
+    });
+    banner.querySelector('.cookie-btn-reject').addEventListener('click', function () {
+      localStorage.setItem(key, 'necessary');
+      banner.remove();
     });
   })();
 })();

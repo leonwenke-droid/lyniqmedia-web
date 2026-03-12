@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://lyniqmedia.com/sitemap.xml
+
+# Block API endpoints from indexing (optional)
+Disallow: /api/

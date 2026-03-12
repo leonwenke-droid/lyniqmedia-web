@@ -5,11 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="LYNIQ Media – KI-Infrastrukturen, Automatisierungssysteme und moderne Websites für den Mittelstand. Skalieren durch Systeme, nicht durch Personal." />
   <title>LYNIQ Media – KI-Systeme für den Mittelstand</title>
+  <link rel="canonical" href="https://lyniqmedia.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lyniqmedia.com/" />
+  <meta property="og:title" content="LYNIQ Media – KI-Systeme für den Mittelstand" />
+  <meta property="og:description" content="LYNIQ Media – KI-Infrastrukturen, Automatisierungssysteme und moderne Websites für den Mittelstand. Skalieren durch Systeme, nicht durch Personal." />
+  <meta property="og:image" content="https://lyniqmedia.com/assets/logo.png" />
+  <meta property="og:locale" content="de_DE" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LYNIQ Media – KI-Systeme für den Mittelstand" />
+  <meta name="twitter:description" content="LYNIQ Media – KI-Infrastrukturen, Automatisierungssysteme und moderne Websites für den Mittelstand. Skalieren durch Systeme, nicht durch Personal." />
+  <meta name="twitter:image" content="https://lyniqmedia.com/assets/logo.png" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "LYNIQ Media",
+        "url": "https://lyniqmedia.com",
+        "logo": "https://lyniqmedia.com/assets/logo.png",
+        "description": "KI-Infrastrukturen, Automatisierungssysteme und moderne Websites für den Mittelstand.",
+        "email": "info@lyniqmedia.com",
+        "address": { "@type": "PostalAddress", "streetAddress": "Alte Poststraße 17a", "addressLocality": "Holtland", "postalCode": "26835", "addressCountry": "DE" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Wie schnell ist das System einsatzbereit?", "acceptedAnswer": { "@type": "Answer", "text": "Einfache Automatisierungen sind oft innerhalb weniger Tage live. Komplexere Lösungen (z. B. KI-Telefon-Assistent, mehrere Workflows) planen wir typischerweise in 2–3 Wochen – abhängig von Ihren Anforderungen und der Integration in bestehende Systeme." }},
+          { "@type": "Question", "name": "Kann ich jederzeit eingreifen oder anpassen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Sie behalten die volle Kontrolle: Workflows und Assistenten lassen sich anpassen, Pausieren oder erweitern. Wir übergeben Ihnen nach dem Setup die nötigen Zugänge und schulen Ihr Team." }},
+          { "@type": "Question", "name": "Wie wird Datenschutz sichergestellt?", "acceptedAnswer": { "@type": "Answer", "text": "Wir arbeiten DSGVO-konform: Daten werden nach Ihren Vorgaben verarbeitet, Hosting erfolgt in der EU wo gewünscht, und wir schließen bei Bedarf Auftragsverarbeitungsverträge." }},
+          { "@type": "Question", "name": "Für welche Unternehmensgrößen ist das sinnvoll?", "acceptedAnswer": { "@type": "Answer", "text": "Vor allem für den Mittelstand und wachsende Unternehmen: Sobald wiederkehrende Aufgaben (Anrufe, E-Mails, Termine, Datenübergaben) Zeit binden, lohnt sich Automatisierung." }},
+          { "@type": "Question", "name": "Wie kann Automatisierung meinem Unternehmen helfen?", "acceptedAnswer": { "@type": "Answer", "text": "Automatisierung kann Betriebskosten senken, menschliche Fehler minimieren, die Produktivität steigern und Ihrem Team ermöglichen, sich auf strategische Aufgaben statt auf Routinearbeiten zu konzentrieren." }},
+          { "@type": "Question", "name": "Welche Branchen profitieren am meisten?", "acceptedAnswer": { "@type": "Answer", "text": "Unternehmen aller Größen und Branchen können profitieren. Ob kleiner Online-Shop, mittelständisches B2B-Unternehmen oder großer Konzern – unsere KI-Tools werden auf Ihre spezifischen Bedürfnisse zugeschnitten." }},
+          { "@type": "Question", "name": "Wie lange dauert die Implementierung?", "acceptedAnswer": { "@type": "Answer", "text": "Einfache Automatisierungen können innerhalb weniger Tage eingesetzt werden, während komplexere Unternehmenslösungen 2-3 Wochen in Anspruch nehmen können." }}
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="header">
@@ -193,8 +232,7 @@
                 <span class="demo-phone-island-cutout" aria-hidden="true"></span>
               </div>
               <div class="demo-phone-screen">
-                <!-- n8n Webhook-URL eintragen: data-n8n-webhook="https://your-n8n.com/webhook/..." -->
-                <form id="demo-voice-form" class="demo-form" data-n8n-webhook="https://n8n.srv881499.hstgr.cloud/webhook/5c735106-48dd-44dd-841f-ff5ccc212448" action="#" method="post">
+                <form id="demo-voice-form" class="demo-form" data-api="/api/webhook/demo-voice" action="#" method="post">
                 <p class="demo-form-headline">
                   <span class="demo-form-check" aria-hidden="true"></span>
                   Testen Sie unseren AI Voice Agent
@@ -391,8 +429,12 @@
         <div class="contact-cta-wrap">
           <a href="/kontakt" class="btn btn-primary btn-cta-large">Kostenloses Erstgespräch buchen</a>
         </div>
-        <!-- n8n Webhook-URL eintragen: data-n8n-webhook="https://your-n8n.com/webhook/..." -->
-        <form id="contact-form" class="contact-form" action="#" method="post" data-n8n-webhook="https://n8n.srv881499.hstgr.cloud/webhook/0674528e-5f4f-42c2-85d5-b38b6ad47f8a">
+        <form id="contact-form" class="contact-form" action="#" method="post" data-api="/api/webhook/contact">
+          <div class="form-honeypot" aria-hidden="true">
+            <label for="website-url-home">Website</label>
+            <input type="text" id="website-url-home" name="website_url" tabindex="-1" autocomplete="off" />
+          </div>
+          <div id="contact-form-error" class="form-error" role="alert" aria-live="polite" hidden></div>
           <div class="form-row-inline">
             <div class="form-row">
               <label for="vorname">Vorname</label>
@@ -426,7 +468,7 @@
     <div class="container footer-grid">
       <div class="footer-brand">
         <a href="/" class="logo footer-logo">
-          <img src="assets/logo.png" alt="LYNIQ Media" class="logo-img" />
+          <img src="assets/logo.png" alt="LYNIQ Media" class="logo-img" loading="lazy" />
         </a>
         <p class="footer-tagline">Die Zukunft beginnt hier.</p>
       </div>
@@ -458,7 +500,7 @@
   </footer>
 
   <!-- KI-Chatbot Widget -->
-  <div id="chatbot-widget" class="chatbot-widget" data-n8n-webhook="https://n8n.srv881499.hstgr.cloud/webhook/2fca4c77-a3d3-4977-8197-4faf93ce08a8">
+  <div id="chatbot-widget" class="chatbot-widget" data-api="/api/webhook/chatbot">
     <!-- Chat Button -->
     <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Chat öffnen" aria-expanded="false">
       <svg class="chatbot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

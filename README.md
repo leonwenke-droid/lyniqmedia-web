@@ -1,10 +1,8 @@
 # LYNIQ Media – AI Agency Website
 
-A single-page site for LYNIQ Media with hero, services, about, work, and contact sections. Uses your LYNIQ logo and brand (cyan–blue gradient, white text, dark background).
+Website für LYNIQ Media mit Hero, Services, Ablauf, Ergebnisse, Über uns und Kontakt. KI-Infrastrukturen und Automatisierungssysteme für den Mittelstand.
 
-## Run locally
-
-Open `index.html` in a browser, or use a local server:
+## Lokal ausführen
 
 ```bash
 # Python 3
@@ -14,19 +12,27 @@ python3 -m http.server 8000
 npx serve .
 ```
 
-Then visit `http://localhost:8000`.
+Dann `http://localhost:8000` im Browser öffnen.
 
-## Structure
+## Struktur
 
-- `index.html` – Main page
-- `styles.css` – Layout and LYNIQ brand styles
-- `main.js` – Mobile nav toggle and contact form placeholder
-- `assets/logo.png` – LYNIQ Media logo
+- `index.html` – Startseite
+- `services.html`, `ablauf.html`, `kontakt.html`, etc. – Unterseiten
+- `styles.css` – Layout und LYNIQ-Brand-Styles
+- `main.js` – Navigation, Formulare, Chatbot, Cookie-Banner
+- `api/webhook/` – Vercel Serverless Functions (Webhook-Proxys)
+- `assets/` – Logo, Favicon, Bilder
 
-## Contact form
+## Kontaktformular & Webhooks
 
-The contact form currently shows a “Message sent” state on submit. To send real emails, wire it to your backend or a service (e.g. Formspree, Netlify Forms, or your own API).
+Die Formulare senden an API-Endpunkte, die Daten an n8n weiterleiten. **Vercel-Umgebungsvariablen** setzen:
+
+- `N8N_CONTACT_WEBHOOK` – Kontaktformular
+- `N8N_DEMO_WEBHOOK` – Demo-Voice-Agent
+- `N8N_CHATBOT_WEBHOOK` – KI-Chatbot
+
+Ohne diese Variablen liefern die Endpunkte 503.
 
 ## Deploy
 
-You can deploy this folder to any static host (Netlify, Vercel, GitHub Pages, Replit, etc.) by uploading the project or connecting your repo.
+Statischer Host (Vercel, Netlify, GitHub Pages, etc.). Bei Vercel die Umgebungsvariablen in den Project Settings konfigurieren.

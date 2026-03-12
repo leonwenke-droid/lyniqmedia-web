@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="LYNIQ Media – Kontakt. Kostenloses Erstgespräch buchen." />
   <title>Kontakt – LYNIQ Media</title>
+  <link rel="canonical" href="https://lyniqmedia.com/kontakt" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lyniqmedia.com/kontakt" />
+  <meta property="og:title" content="Kontakt – LYNIQ Media" />
+  <meta property="og:description" content="LYNIQ Media – Kontakt. Kostenloses Erstgespräch buchen." />
+  <meta property="og:image" content="https://lyniqmedia.com/assets/logo.png" />
+  <meta property="og:locale" content="de_DE" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kontakt – LYNIQ Media" />
+  <meta name="twitter:description" content="LYNIQ Media – Kontakt. Kostenloses Erstgespräch buchen." />
+  <meta name="twitter:image" content="https://lyniqmedia.com/assets/logo.png" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,8 +53,12 @@
         <div class="contact-cta-wrap">
           <a href="#contact-form" class="btn btn-primary btn-cta-large">Kostenloses Erstgespräch buchen</a>
         </div>
-        <!-- n8n Webhook-URL eintragen: data-n8n-webhook="https://your-n8n.com/webhook/..." -->
-        <form id="contact-form" class="contact-form" action="#" method="post" data-n8n-webhook="https://n8n.srv881499.hstgr.cloud/webhook/0674528e-5f4f-42c2-85d5-b38b6ad47f8a">
+        <form id="contact-form" class="contact-form" action="#" method="post" data-api="/api/webhook/contact">
+          <div class="form-honeypot" aria-hidden="true">
+            <label for="website-url">Website</label>
+            <input type="text" id="website-url" name="website_url" tabindex="-1" autocomplete="off" />
+          </div>
+          <div id="contact-form-error" class="form-error" role="alert" aria-live="polite" hidden></div>
           <div class="form-row-inline">
             <div class="form-row">
               <label for="vorname">Vorname</label>
@@ -76,7 +91,7 @@
     <div class="container footer-grid">
       <div class="footer-brand">
         <a href="/" class="logo footer-logo">
-          <img src="assets/logo.png" alt="LYNIQ Media" class="logo-img" />
+          <img src="assets/logo.png" alt="LYNIQ Media" class="logo-img" loading="lazy" />
         </a>
         <p class="footer-tagline">Die Zukunft beginnt hier.</p>
       </div>
@@ -106,7 +121,7 @@
       <p class="footer-copy">© <span class="current-year"></span> LYNIQ Media. Alle Rechte vorbehalten.</p>
     </div>
   </footer>  <!-- KI-Chatbot Widget -->
-  <div id="chatbot-widget" class="chatbot-widget" data-n8n-webhook="https://n8n.srv881499.hstgr.cloud/webhook/2fca4c77-a3d3-4977-8197-4faf93ce08a8">
+  <div id="chatbot-widget" class="chatbot-widget" data-api="/api/webhook/chatbot">
     <!-- Chat Button -->
     <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Chat öffnen" aria-expanded="false">
       <svg class="chatbot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
