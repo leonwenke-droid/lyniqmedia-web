@@ -33,6 +33,17 @@ Die Formulare senden an API-Endpunkte, die Daten an n8n weiterleiten. **Vercel-U
 
 Ohne diese Variablen liefern die Endpunkte 503.
 
+## Build
+
+```bash
+npm run build
+```
+
+Erzeugt `dist/` mit minifiziertem CSS/JS und allen statischen Dateien. Vercel führt den Build automatisch aus und deployed aus `dist/`.
+
 ## Deploy
 
-Statischer Host (Vercel, Netlify, GitHub Pages, etc.). Bei Vercel die Umgebungsvariablen in den Project Settings konfigurieren.
+Statischer Host (Vercel, Netlify, GitHub Pages, etc.). Bei Vercel:
+- `buildCommand`: `npm run build`
+- `outputDirectory`: `dist`
+- Umgebungsvariablen in den Project Settings konfigurieren

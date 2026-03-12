@@ -1,13 +1,17 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "cleanUrls": true,
-  "redirects": [
-    {"source": "/index.html", "destination": "/", "permanent": true},
-    {"source": "/:path.html", "destination": "/:path", "permanent": true}
-  ],
   "rewrites": [
+    {"source": "/robots.txt", "destination": "/api/robots"},
+    {"source": "/sitemap.xml", "destination": "/api/sitemap"},
     {"source": "/author", "destination": "/api/gone"},
     {"source": "/author/:path*", "destination": "/api/gone"},
     {"source": "/category", "destination": "/api/gone"},
     {"source": "/category/:path*", "destination": "/api/gone"}
+  ],
+  "redirects": [
+    {"source": "/index.html", "destination": "/", "permanent": true},
+    {"source": "/:path.html", "destination": "/:path", "permanent": true}
   ]
 }

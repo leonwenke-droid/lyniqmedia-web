@@ -43,3 +43,7 @@ Die Formulare senden an API-Endpunkte (`/api/webhook/contact`, `/api/webhook/dem
 - HTML: semantisch, barrierefrei (ARIA, Labels)
 - CSS: BEM-ähnliche Klassen, CSS-Variablen
 - JS: Vanilla JavaScript, ES5-kompatibel
+
+## Redundanz reduzieren (geplant)
+
+Header und Footer sind derzeit in jeder HTML-Datei dupliziert. Eine zukünftige Verbesserung wäre ein Static-Site-Generator (z. B. Eleventy, Hugo) oder eine Template-Engine, um `partials/header.html` und `partials/footer.html` zentral zu pflegen.
