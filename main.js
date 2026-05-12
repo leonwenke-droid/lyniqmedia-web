@@ -69,6 +69,14 @@
     el.textContent = year;
   });
 
+  var deployEl = document.querySelector('.deploy-date');
+  if (deployEl) {
+    var d = new Date();
+    deployEl.textContent = d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+  }
+
   /* Scroll-Reveal: Sektionen und Karten erscheinen beim Runterscrollen */
   (function initScrollReveal() {
     var sections = document.querySelectorAll('.section');
