@@ -20,8 +20,8 @@
       --text: #f0f6ff;
       --muted: #8899aa;
       --gradient: linear-gradient(135deg, #00d4ff 0%, #0066ff 50%, #7c3aed 100%);
-      --spline-crop-bottom: 64px;
-      --spline-crop-right: 120px;
+      --text-gradient: linear-gradient(125deg, #f8fcff 0%, #b8ecff 28%, #00d4ff 52%, #8b5cf6 100%);
+      --lead-gradient: linear-gradient(180deg, #d4e4f4 0%, #9eb4c8 45%, #5eb8e8 100%);
     }
     *, *::before, *::after { box-sizing: border-box; }
     html, body {
@@ -73,30 +73,23 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: calc(100% + var(--spline-crop-right));
-      height: calc(100% + var(--spline-crop-bottom));
-      min-height: calc(100% + var(--spline-crop-bottom));
-      max-width: none;
+      width: 100%;
+      height: calc(100% + 56px);
       margin: 0;
       padding: 0;
       border: none;
       touch-action: none;
     }
-    /* Fallback: Ecke unten rechts (Spline-Badge) */
     .spline-corner-cover {
       position: absolute;
       right: 0;
       bottom: 0;
-      z-index: 2;
-      width: min(180px, 32vw);
-      height: 56px;
+      z-index: 5;
+      width: 200px;
+      height: 64px;
       pointer-events: none;
-      background: linear-gradient(
-        165deg,
-        transparent 0%,
-        rgba(4, 4, 7, 0.85) 45%,
-        var(--bg) 100%
-      );
+      background: var(--bg);
+      box-shadow: -24px -16px 48px 16px var(--bg);
     }
     .spline-wrapper spline-viewer.is-hidden {
       display: none;
@@ -114,13 +107,15 @@
       position: absolute;
       inset: 0;
       z-index: 3;
-      background: linear-gradient(
-        180deg,
-        rgba(4, 4, 7, 0.15) 0%,
-        rgba(4, 4, 7, 0.35) 50%,
-        rgba(4, 4, 7, 0.5) 100%
-      );
       pointer-events: none;
+      background: radial-gradient(
+        ellipse  min(92vw, 720px) min(88vh, 820px) at 50% 46%,
+        rgba(0, 0, 0, 0.88) 0%,
+        rgba(0, 0, 0, 0.62) 28%,
+        rgba(0, 0, 0, 0.32) 48%,
+        rgba(0, 0, 0, 0.1) 62%,
+        transparent 78%
+      );
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -129,7 +124,7 @@
 
     .wartung-page {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       min-height: 100vh;
       min-height: 100dvh;
       display: flex;
@@ -142,8 +137,13 @@
       position: relative;
       max-width: 520px;
       width: 100%;
+      margin: 0 auto;
       text-align: center;
       pointer-events: none;
+    }
+    .wartung-hero {
+      padding: 0 0 0.5rem;
+      margin-bottom: 0.25rem;
     }
     .wartung-card,
     .wartung-card a,
@@ -178,20 +178,25 @@
       font-weight: 600;
       line-height: 1.2;
       margin: 0 0 1rem;
-      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
     }
-    .wartung h1 span {
-      background: var(--gradient);
+    .wartung-title-gradient {
+      display: inline-block;
+      background-image: var(--text-gradient);
+      background-size: 100% auto;
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    .wartung-title-gradient strong {
+      font-weight: 700;
     }
     .wartung-lead {
-      color: var(--muted);
+      max-width: 100%;
       font-size: 1.05rem;
       line-height: 1.65;
-      margin: 0 0 2rem;
-      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8);
+      margin: 0;
+      color: #d8e4f0;
     }
     .wartung-card {
       padding: 1.75rem;
@@ -256,9 +261,11 @@
       margin-top: 2rem;
       font-size: 0.8rem;
       color: var(--muted);
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
     }
-    .wartung-footer strong { color: var(--text); font-weight: 500; }
+    .wartung-footer strong {
+      font-weight: 600;
+      color: #c8e6ff;
+    }
   </style>
 </head>
 <body>
@@ -270,7 +277,7 @@
           id="spline-viewer"
           events-target="global"
           loading="eager"
-          url="assets/scene-clean.splinecode"
+          url="assets/scene.splinecode"
         ></spline-viewer>
       </div>
       <canvas id="spline-canvas-fallback" aria-hidden="true"></canvas>
@@ -281,13 +288,15 @@
 
   <div class="wartung-page">
     <main class="wartung">
-      <img src="assets/logo.png" alt="LYNIQ Media" class="wartung-logo" width="180" height="auto" />
-      <p class="wartung-badge">Beratung verfügbar</p>
-      <h1>Website im <span>Umbau</span></h1>
-      <p class="wartung-lead">
-        Wir arbeiten an einer neuen Website. In der Zwischenzeit sind wir für Sie da –
-        kostenlose Erstberatung zu KI-Systemen und Automatisierung für den Mittelstand.
-      </p>
+      <div class="wartung-hero">
+        <img src="assets/logo.png" alt="LYNIQ Media" class="wartung-logo" width="180" height="auto" />
+        <p class="wartung-badge">Beratung verfügbar</p>
+        <h1><span class="wartung-title-gradient">Website im <strong>Umbau</strong></span></h1>
+        <p class="wartung-lead">
+          Wir arbeiten an einer neuen Website. In der Zwischenzeit sind wir für Sie da –
+          kostenlose Erstberatung zu KI-Systemen und Automatisierung für den Mittelstand.
+        </p>
+      </div>
       <div class="wartung-card">
         <h2>Kontakt &amp; Beratung</h2>
         <ul class="wartung-contact">
@@ -313,12 +322,10 @@
   </div>
 
   <script type="module">
-    const SCENE_URL = 'assets/scene-clean.splinecode';
+    const SCENE_URL = 'assets/scene.splinecode';
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const SPLINE_CROP_BOTTOM = 64;
-    const SPLINE_CROP_RIGHT = 120;
     const wrapper = document.getElementById('spline-wrapper');
     const viewer = document.getElementById('spline-viewer');
     const canvasFb = document.getElementById('spline-canvas-fallback');
@@ -328,7 +335,7 @@
     function viewportSize() {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      return { w: w, h: h, wCrop: w + SPLINE_CROP_RIGHT, hCrop: h + SPLINE_CROP_BOTTOM };
+      return { w: w, h: h };
     }
 
     function injectViewerShadowStyles(root) {
@@ -338,20 +345,29 @@
       style.textContent =
         ':host{display:block!important;width:100%!important;height:100%!important}' +
         'canvas{width:100%!important;height:100%!important;display:block!important}' +
-        '#logo{display:none!important;visibility:hidden!important}';
+        '#logo,#hints,a[href*="spline"]{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important}';
       root.appendChild(style);
+    }
+
+    function hideViewerBranding(root) {
+      if (!root) return;
+      root.querySelectorAll('#logo, a#logo, a[href*="spline.design"]').forEach(function (el) {
+        el.remove();
+      });
     }
 
     function stretchViewer(el) {
       if (!el) return;
-      const { wCrop, hCrop } = viewportSize();
-      el.setAttribute('width', String(wCrop));
+      const { w, h } = viewportSize();
+      const hCrop = h + 56;
+      el.setAttribute('width', String(w));
       el.setAttribute('height', String(hCrop));
-      el.style.width = wCrop + 'px';
+      el.style.width = '100%';
       el.style.height = hCrop + 'px';
       const root = el.shadowRoot;
       if (!root) return;
       injectViewerShadowStyles(root);
+      hideViewerBranding(root);
       root.querySelectorAll('canvas').forEach(function (c) {
         c.style.width = '100%';
         c.style.height = '100%';
@@ -359,8 +375,9 @@
     }
 
     function stretchRuntime() {
-      const { w, h, wCrop, hCrop } = viewportSize();
-      canvasFb.style.width = wCrop + 'px';
+      const { w, h } = viewportSize();
+      const hCrop = h + 56;
+      canvasFb.style.width = '100%';
       canvasFb.style.height = hCrop + 'px';
       if (runtimeApp && typeof runtimeApp.setSize === 'function') runtimeApp.setSize(w, h);
     }
@@ -398,14 +415,30 @@
     window.addEventListener('resize', onResize);
     if (window.visualViewport) window.visualViewport.addEventListener('resize', onResize);
 
+    const brandingTimer = window.setInterval(function () {
+      hideViewerBranding(viewer.shadowRoot);
+    }, 400);
+    window.setTimeout(function () {
+      window.clearInterval(brandingTimer);
+    }, 30000);
+
     customElements.whenDefined('spline-viewer').then(function () {
       stretchViewer(viewer);
+      const root = viewer.shadowRoot;
+      if (root) {
+        hideViewerBranding(root);
+        new MutationObserver(function () {
+          hideViewerBranding(viewer.shadowRoot);
+        }).observe(root, { childList: true, subtree: true });
+      }
       viewer.addEventListener('load', function () {
         stretchViewer(viewer);
+        hideViewerBranding(viewer.shadowRoot);
         if (!viewerHasCanvas()) loadRuntimeFallback();
       });
       viewer.addEventListener('load-complete', function () {
         stretchViewer(viewer);
+        hideViewerBranding(viewer.shadowRoot);
       });
       viewer.addEventListener('error', loadRuntimeFallback);
       window.setTimeout(function () {
