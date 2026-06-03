@@ -20,6 +20,8 @@
       --text: #f0f6ff;
       --muted: #8899aa;
       --gradient: linear-gradient(135deg, #00d4ff 0%, #0066ff 50%, #7c3aed 100%);
+      --spline-crop-bottom: 64px;
+      --spline-crop-right: 120px;
     }
     *, *::before, *::after { box-sizing: border-box; }
     html, body {
@@ -56,45 +58,62 @@
         radial-gradient(ellipse 90% 60% at 50% 40%, rgba(0, 212, 255, 0.15), transparent 60%),
         var(--bg);
     }
-    #spline-canvas-fallback {
+    /* Logo unten abschneiden: Viewer etwas höher als Container (wie iframe-Trick) */
+    .spline-wrapper {
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
       z-index: 1;
-      display: none;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      max-width: none;
-      max-height: none;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
-    #spline-canvas-fallback.is-active {
-      display: block;
-    }
-    spline-viewer {
+    .spline-wrapper spline-viewer,
+    .spline-wrapper #spline-canvas-fallback {
       display: block;
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 1;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      min-width: 100vw;
-      min-height: 100dvh;
+      width: calc(100% + var(--spline-crop-right));
+      height: calc(100% + var(--spline-crop-bottom));
+      min-height: calc(100% + var(--spline-crop-bottom));
       max-width: none;
-      max-height: none;
       margin: 0;
       padding: 0;
       border: none;
+      touch-action: none;
     }
-    spline-viewer.is-hidden {
+    /* Fallback: Ecke unten rechts (Spline-Badge) */
+    .spline-corner-cover {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      width: min(180px, 32vw);
+      height: 56px;
+      pointer-events: none;
+      background: linear-gradient(
+        165deg,
+        transparent 0%,
+        rgba(4, 4, 7, 0.85) 45%,
+        var(--bg) 100%
+      );
+    }
+    .spline-wrapper spline-viewer.is-hidden {
       display: none;
+    }
+    #spline-canvas-fallback {
+      display: none;
+    }
+    .spline-wrapper.is-runtime .spline-viewer-slot {
+      display: none;
+    }
+    .spline-wrapper.is-runtime #spline-canvas-fallback {
+      display: block;
     }
     .spline-scrim {
       position: absolute;
       inset: 0;
-      z-index: 2;
+      z-index: 3;
       background: linear-gradient(
         180deg,
         rgba(4, 4, 7, 0.15) 0%,
@@ -245,13 +264,18 @@
 <body>
   <div class="spline-bg" id="spline-bg" aria-hidden="true">
     <div class="spline-bg-fallback"></div>
-    <canvas id="spline-canvas-fallback" aria-hidden="true"></canvas>
-    <spline-viewer
-      id="spline-viewer"
-      events-target="global"
-      loading="eager"
-      url="https://prod.spline.design/jc3rohaOg0pRpbRI/scene.splinecode"
-    ></spline-viewer>
+    <div class="spline-wrapper" id="spline-wrapper">
+      <div class="spline-viewer-slot">
+        <spline-viewer
+          id="spline-viewer"
+          events-target="global"
+          loading="eager"
+          url="assets/scene-clean.splinecode"
+        ></spline-viewer>
+      </div>
+      <canvas id="spline-canvas-fallback" aria-hidden="true"></canvas>
+    </div>
+    <div class="spline-corner-cover" aria-hidden="true"></div>
     <div class="spline-scrim"></div>
   </div>
 
@@ -289,17 +313,22 @@
   </div>
 
   <script type="module">
-    const SCENE_URL = 'https://prod.spline.design/jc3rohaOg0pRpbRI/scene.splinecode';
+    const SCENE_URL = 'assets/scene-clean.splinecode';
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const SPLINE_CROP_BOTTOM = 64;
+    const SPLINE_CROP_RIGHT = 120;
+    const wrapper = document.getElementById('spline-wrapper');
     const viewer = document.getElementById('spline-viewer');
     const canvasFb = document.getElementById('spline-canvas-fallback');
     let runtimeUsed = false;
     let runtimeApp = null;
 
     function viewportSize() {
-      return { w: window.innerWidth, h: window.innerHeight };
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      return { w: w, h: h, wCrop: w + SPLINE_CROP_RIGHT, hCrop: h + SPLINE_CROP_BOTTOM };
     }
 
     function injectViewerShadowStyles(root) {
@@ -307,39 +336,37 @@
       const style = document.createElement('style');
       style.id = 'lyniq-spline-fullscreen';
       style.textContent =
-        ':host{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}' +
-        'canvas{width:100%!important;height:100%!important;display:block!important;max-width:none!important;max-height:none!important}';
+        ':host{display:block!important;width:100%!important;height:100%!important}' +
+        'canvas{width:100%!important;height:100%!important;display:block!important}' +
+        '#logo{display:none!important;visibility:hidden!important}';
       root.appendChild(style);
     }
 
-    function stretchSplineViewer(el) {
+    function stretchViewer(el) {
       if (!el) return;
-      const { w, h } = viewportSize();
-      el.setAttribute('width', String(w));
-      el.setAttribute('height', String(h));
-      el.style.width = w + 'px';
-      el.style.height = h + 'px';
+      const { wCrop, hCrop } = viewportSize();
+      el.setAttribute('width', String(wCrop));
+      el.setAttribute('height', String(hCrop));
+      el.style.width = wCrop + 'px';
+      el.style.height = hCrop + 'px';
       const root = el.shadowRoot;
       if (!root) return;
       injectViewerShadowStyles(root);
-      root.querySelectorAll('canvas').forEach(function (canvas) {
-        canvas.style.width = '100%';
-        canvas.style.height = '100%';
+      root.querySelectorAll('canvas').forEach(function (c) {
+        c.style.width = '100%';
+        c.style.height = '100%';
       });
     }
 
-    function stretchRuntimeCanvas() {
-      const { w, h } = viewportSize();
-      canvasFb.style.width = w + 'px';
-      canvasFb.style.height = h + 'px';
-      if (runtimeApp && typeof runtimeApp.setSize === 'function') {
-        runtimeApp.setSize(w, h);
-      }
+    function stretchRuntime() {
+      const { w, h, wCrop, hCrop } = viewportSize();
+      canvasFb.style.width = wCrop + 'px';
+      canvasFb.style.height = hCrop + 'px';
+      if (runtimeApp && typeof runtimeApp.setSize === 'function') runtimeApp.setSize(w, h);
     }
 
-    function viewerHasRenderableCanvas() {
-      const root = viewer && viewer.shadowRoot;
-      const c = root && root.querySelector('canvas');
+    function viewerHasCanvas() {
+      const c = viewer.shadowRoot && viewer.shadowRoot.querySelector('canvas');
       if (!c) return false;
       const r = c.getBoundingClientRect();
       return r.width > 50 && r.height > 50;
@@ -349,43 +376,41 @@
       if (runtimeUsed) return;
       runtimeUsed = true;
       viewer.classList.add('is-hidden');
-      canvasFb.classList.add('is-active');
-      stretchRuntimeCanvas();
+      wrapper.classList.add('is-runtime');
+      stretchRuntime();
       try {
         const mod = await import('https://unpkg.com/@splinetool/runtime@1.9.82/build/runtime.js');
         runtimeApp = new mod.Application(canvasFb);
         await runtimeApp.load(SCENE_URL);
         if (typeof runtimeApp.setGlobalEvents === 'function') runtimeApp.setGlobalEvents(true);
-        stretchRuntimeCanvas();
+        stretchRuntime();
       } catch (err) {
         console.warn('Spline Runtime Fallback fehlgeschlagen:', err);
       }
     }
 
-    function onViewportChange() {
-      if (!runtimeUsed) stretchSplineViewer(viewer);
-      else stretchRuntimeCanvas();
+    function onResize() {
+      if (!runtimeUsed) stretchViewer(viewer);
+      else stretchRuntime();
     }
 
-    stretchSplineViewer(viewer);
-    window.addEventListener('resize', onViewportChange);
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', onViewportChange);
-    }
+    stretchViewer(viewer);
+    window.addEventListener('resize', onResize);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', onResize);
 
     customElements.whenDefined('spline-viewer').then(function () {
-      stretchSplineViewer(viewer);
+      stretchViewer(viewer);
       viewer.addEventListener('load', function () {
-        stretchSplineViewer(viewer);
-        if (!viewerHasRenderableCanvas()) loadRuntimeFallback();
+        stretchViewer(viewer);
+        if (!viewerHasCanvas()) loadRuntimeFallback();
       });
       viewer.addEventListener('load-complete', function () {
-        stretchSplineViewer(viewer);
+        stretchViewer(viewer);
       });
       viewer.addEventListener('error', loadRuntimeFallback);
       window.setTimeout(function () {
-        stretchSplineViewer(viewer);
-        if (!viewerHasRenderableCanvas()) loadRuntimeFallback();
+        stretchViewer(viewer);
+        if (!viewerHasCanvas()) loadRuntimeFallback();
       }, 7000);
     }).catch(loadRuntimeFallback);
   </script>
