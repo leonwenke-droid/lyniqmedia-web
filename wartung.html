@@ -32,16 +32,46 @@
       justify-content: center;
       padding: 1.5rem;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    body::before {
-      content: '';
+    .spline-bg {
       position: fixed;
       inset: 0;
-      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 255, 0.12), transparent);
+      z-index: 0;
       pointer-events: none;
+      overflow: hidden;
+    }
+    #spline-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    #spline-canvas.is-loaded {
+      opacity: 0.55;
+    }
+    .spline-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 40%, rgba(4, 4, 7, 0.35), rgba(4, 4, 7, 0.92) 70%),
+        linear-gradient(180deg, rgba(4, 4, 7, 0.5) 0%, rgba(4, 4, 7, 0.85) 100%);
+      pointer-events: none;
+    }
+    @media (max-width: 768px) {
+      #spline-canvas.is-loaded {
+        opacity: 0.35;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .spline-bg { display: none; }
     }
     .wartung {
       position: relative;
+      z-index: 1;
       max-width: 520px;
       width: 100%;
       text-align: center;
@@ -153,6 +183,10 @@
   </style>
 </head>
 <body>
+  <div class="spline-bg" aria-hidden="true">
+    <canvas id="spline-canvas"></canvas>
+    <div class="spline-overlay"></div>
+  </div>
   <main class="wartung">
     <img src="assets/logo.png" alt="LYNIQ Media" class="wartung-logo" width="180" height="auto" />
     <p class="wartung-badge">Beratung verfügbar</p>
@@ -183,5 +217,23 @@
       <strong>LYNIQ Media</strong> · Leon Wenke · KI-Systeme für den Mittelstand
     </p>
   </main>
+  <script type="module">
+    const SCENE_URL = 'https://prod.spline.design/jc3rohaOg0pRpbRI/scene.splinecode';
+    const canvas = document.getElementById('spline-canvas');
+    if (!canvas) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    import('https://esm.sh/@splinetool/runtime')
+      .then(function (mod) {
+        const Application = mod.Application;
+        const app = new Application(canvas);
+        return app.load(SCENE_URL).then(function () {
+          canvas.classList.add('is-loaded');
+        });
+      })
+      .catch(function () {
+        document.querySelector('.spline-bg')?.remove();
+      });
+  </script>
 </body>
 </html>
