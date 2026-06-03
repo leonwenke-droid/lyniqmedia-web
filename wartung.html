@@ -13,10 +13,9 @@
   <style>
     :root {
       --bg: #040407;
-      --card: #0d1117;
-      --border: rgba(99, 179, 237, 0.15);
+      --card: rgba(13, 17, 23, 0.88);
+      --border: rgba(99, 179, 237, 0.2);
       --accent: #00d4ff;
-      --accent-end: #7c3aed;
       --text: #f0f6ff;
       --muted: #8899aa;
       --gradient: linear-gradient(135deg, #00d4ff 0%, #0066ff 50%, #7c3aed 100%);
@@ -27,60 +26,83 @@
       font-family: 'Inter', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
+
+    /* Spline – Vollbild-Hintergrund, Maus-Events aktiv */
     .spline-bg {
       position: fixed;
       inset: 0;
       z-index: 0;
-      pointer-events: none;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
     }
     #spline-canvas {
-      position: absolute;
-      inset: 0;
+      display: block;
       width: 100%;
       height: 100%;
-      display: block;
+      touch-action: none;
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 0.8s ease;
     }
     #spline-canvas.is-loaded {
-      opacity: 0.55;
+      opacity: 1;
     }
-    .spline-overlay {
+    .spline-bg-fallback {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 90% 70% at 50% 40%, rgba(4, 4, 7, 0.35), rgba(4, 4, 7, 0.92) 70%),
-        linear-gradient(180deg, rgba(4, 4, 7, 0.5) 0%, rgba(4, 4, 7, 0.85) 100%);
+        radial-gradient(ellipse 90% 60% at 50% 40%, rgba(0, 212, 255, 0.15), transparent 60%),
+        var(--bg);
+    }
+    .spline-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(4, 4, 7, 0.35) 0%,
+        rgba(4, 4, 7, 0.55) 50%,
+        rgba(4, 4, 7, 0.75) 100%
+      );
       pointer-events: none;
     }
-    @media (max-width: 768px) {
-      #spline-canvas.is-loaded {
-        opacity: 0.35;
-      }
-    }
-    @media (prefers-reduced-motion: reduce) {
+
+  @media (prefers-reduced-motion: reduce) {
       .spline-bg { display: none; }
+    }
+
+    /* Inhalt über der 3D-Szene */
+    .wartung-page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      pointer-events: none;
     }
     .wartung {
       position: relative;
-      z-index: 1;
       max-width: 520px;
       width: 100%;
       text-align: center;
+      pointer-events: none;
+    }
+    .wartung-card,
+    .wartung-card a,
+    .wartung-cta {
+      pointer-events: auto;
     }
     .wartung-logo {
       display: block;
       margin: 0 auto 1.5rem;
       max-width: 180px;
       height: auto;
+      filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.5));
     }
     .wartung-badge {
       display: inline-block;
@@ -92,9 +114,10 @@
       text-transform: uppercase;
       font-family: 'Space Grotesk', sans-serif;
       color: var(--accent);
-      background: rgba(0, 212, 255, 0.1);
-      border: 1px solid rgba(0, 212, 255, 0.25);
+      background: rgba(0, 212, 255, 0.12);
+      border: 1px solid rgba(0, 212, 255, 0.35);
       border-radius: 999px;
+      backdrop-filter: blur(8px);
     }
     .wartung h1 {
       font-family: 'Space Grotesk', sans-serif;
@@ -102,6 +125,7 @@
       font-weight: 600;
       line-height: 1.2;
       margin: 0 0 1rem;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
     }
     .wartung h1 span {
       background: var(--gradient);
@@ -114,6 +138,7 @@
       font-size: 1.05rem;
       line-height: 1.65;
       margin: 0 0 2rem;
+      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8);
     }
     .wartung-card {
       padding: 1.75rem;
@@ -121,6 +146,9 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       text-align: left;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
     }
     .wartung-card h2 {
       font-family: 'Space Grotesk', sans-serif;
@@ -136,9 +164,7 @@
       margin: 0;
       padding: 0;
     }
-    .wartung-contact li {
-      margin-bottom: 0.85rem;
-    }
+    .wartung-contact li { margin-bottom: 0.85rem; }
     .wartung-contact li:last-child { margin-bottom: 0; }
     .wartung-contact span {
       display: block;
@@ -156,7 +182,6 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
       width: 100%;
       margin-top: 1.25rem;
       padding: 0.9rem 1.5rem;
@@ -178,62 +203,84 @@
       margin-top: 2rem;
       font-size: 0.8rem;
       color: var(--muted);
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
     }
     .wartung-footer strong { color: var(--text); font-weight: 500; }
   </style>
 </head>
 <body>
-  <div class="spline-bg" aria-hidden="true">
+  <div class="spline-bg" id="spline-bg" aria-hidden="true">
+    <div class="spline-bg-fallback"></div>
     <canvas id="spline-canvas"></canvas>
-    <div class="spline-overlay"></div>
+    <div class="spline-scrim"></div>
   </div>
-  <main class="wartung">
-    <img src="assets/logo.png" alt="LYNIQ Media" class="wartung-logo" width="180" height="auto" />
-    <p class="wartung-badge">Beratung verfügbar</p>
-    <h1>Website im <span>Umbau</span></h1>
-    <p class="wartung-lead">
-      Wir arbeiten an einer neuen Website. In der Zwischenzeit sind wir für Sie da –
-      kostenlose Erstberatung zu KI-Systemen und Automatisierung für den Mittelstand.
-    </p>
-    <div class="wartung-card">
-      <h2>Kontakt &amp; Beratung</h2>
-      <ul class="wartung-contact">
-        <li>
-          <span>E-Mail</span>
-          <a href="mailto:info@lyniqmedia.com">info@lyniqmedia.com</a>
-        </li>
-        <li>
-          <span>Telefon</span>
-          <a href="tel:+4915175007219">+49 1517 5007219</a>
-        </li>
-        <li>
-          <span>WhatsApp</span>
-          <a href="https://wa.me/4915175007219" target="_blank" rel="noopener noreferrer">Nachricht senden</a>
-        </li>
-      </ul>
-      <a href="mailto:info@lyniqmedia.com?subject=Erstgespr%C3%A4ch%20anfragen" class="wartung-cta">Kostenloses Erstgespräch anfragen</a>
-    </div>
-    <p class="wartung-footer">
-      <strong>LYNIQ Media</strong> · Leon Wenke · KI-Systeme für den Mittelstand
-    </p>
-  </main>
-  <script type="module">
-    const SCENE_URL = 'assets/scene-clean.splinecode';
-    const canvas = document.getElementById('spline-canvas');
-    if (!canvas) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    import('https://esm.sh/@splinetool/runtime')
-      .then(function (mod) {
-        const Application = mod.Application;
-        const app = new Application(canvas);
-        return app.load(SCENE_URL).then(function () {
-          canvas.classList.add('is-loaded');
+  <div class="wartung-page">
+    <main class="wartung">
+      <img src="assets/logo.png" alt="LYNIQ Media" class="wartung-logo" width="180" height="auto" />
+      <p class="wartung-badge">Beratung verfügbar</p>
+      <h1>Website im <span>Umbau</span></h1>
+      <p class="wartung-lead">
+        Wir arbeiten an einer neuen Website. In der Zwischenzeit sind wir für Sie da –
+        kostenlose Erstberatung zu KI-Systemen und Automatisierung für den Mittelstand.
+      </p>
+      <div class="wartung-card">
+        <h2>Kontakt &amp; Beratung</h2>
+        <ul class="wartung-contact">
+          <li>
+            <span>E-Mail</span>
+            <a href="mailto:info@lyniqmedia.com">info@lyniqmedia.com</a>
+          </li>
+          <li>
+            <span>Telefon</span>
+            <a href="tel:+4915175007219">+49 1517 5007219</a>
+          </li>
+          <li>
+            <span>WhatsApp</span>
+            <a href="https://wa.me/4915175007219" target="_blank" rel="noopener noreferrer">Nachricht senden</a>
+          </li>
+        </ul>
+        <a href="mailto:info@lyniqmedia.com?subject=Erstgespr%C3%A4ch%20anfragen" class="wartung-cta">Kostenloses Erstgespräch anfragen</a>
+      </div>
+      <p class="wartung-footer">
+        <strong>LYNIQ Media</strong> · Leon Wenke · KI-Systeme für den Mittelstand
+      </p>
+    </main>
+  </div>
+
+  <script type="module">
+    const SCENE_URL = 'https://prod.spline.design/jc3rohaOg0pRpbRI/scene.splinecode';
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reducedMotion) {
+      const canvas = document.getElementById('spline-canvas');
+      const bg = document.getElementById('spline-bg');
+
+      function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      import('https://esm.sh/@splinetool/runtime')
+        .then(function (mod) {
+          const Application = mod.Application;
+          const spline = new Application(canvas);
+          return spline.load(SCENE_URL).then(function () {
+            canvas.classList.add('is-loaded');
+            return spline;
+          });
+        })
+        .catch(function (err) {
+          console.warn('Spline konnte nicht geladen werden:', err);
+          if (bg) bg.querySelector('.spline-bg-fallback').style.opacity = '1';
         });
-      })
-      .catch(function () {
-        document.querySelector('.spline-bg')?.remove();
-      });
+    }
   </script>
 </body>
 </html>
