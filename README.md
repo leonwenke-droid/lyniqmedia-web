@@ -1,6 +1,6 @@
-# LYNIQ Media – AI Agency Website
+# LYNIQ Media – Website
 
-Website für LYNIQ Media mit Hero, Services, Ablauf, Ergebnisse, Über uns und Kontakt. KI-Infrastrukturen und Automatisierungssysteme für den Mittelstand.
+**Aktuell: Wartungsmodus** – Es wird nur eine Beratungs-Landingpage ausgeliefert. Die bisherige Website liegt in `_legacy/` und wird für den Neubau als Referenz genutzt.
 
 ## Lokal ausführen
 
@@ -33,13 +33,13 @@ Die Formulare senden an API-Endpunkte, die Daten an n8n weiterleiten. **Vercel-U
 
 Ohne diese Variablen liefern die Endpunkte 503.
 
-## Build
+## Build (Wartungsmodus)
 
 ```bash
 npm run build
 ```
 
-Erzeugt `dist/` mit minifiziertem CSS/JS und allen statischen Dateien. Vercel führt den Build automatisch aus und deployed aus `dist/`.
+Erzeugt `dist/` nur mit `wartung.html` (als `index.html`), Logo/Assets und API-Routen. Alle URLs zeigen die Wartungsseite.
 
 ## Deploy
 

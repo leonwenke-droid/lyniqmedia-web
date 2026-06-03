@@ -24,10 +24,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Verify dist output
+      - name: Verify dist output (Wartungsmodus)
         run: |
           test -f dist/index.html
-          test -f dist/styles.css
-          test -f dist/main.js
+          test -f dist/wartung.html
           test -d dist/api
           test -d dist/assets
+          grep -q "Website im Umbau" dist/index.html

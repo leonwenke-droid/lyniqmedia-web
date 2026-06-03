@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="LYNIQ Media – Website im Umbau. Beratung und Erstgespräch weiterhin möglich." />
+  <title>LYNIQ Media – Website im Umbau</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #040407;
+      --card: #0d1117;
+      --border: rgba(99, 179, 237, 0.15);
+      --accent: #00d4ff;
+      --accent-end: #7c3aed;
+      --text: #f0f6ff;
+      --muted: #8899aa;
+      --gradient: linear-gradient(135deg, #00d4ff 0%, #0066ff 50%, #7c3aed 100%);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 255, 0.12), transparent);
+      pointer-events: none;
+    }
+    .wartung {
+      position: relative;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+    }
+    .wartung-logo {
+      display: block;
+      margin: 0 auto 1.5rem;
+      max-width: 180px;
+      height: auto;
+    }
+    .wartung-badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--accent);
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      border-radius: 999px;
+    }
+    .wartung h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 1rem;
+    }
+    .wartung h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .wartung-lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.65;
+      margin: 0 0 2rem;
+    }
+    .wartung-card {
+      padding: 1.75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: left;
+    }
+    .wartung-card h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 1rem;
+    }
+    .wartung-contact {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .wartung-contact li {
+      margin-bottom: 0.85rem;
+    }
+    .wartung-contact li:last-child { margin-bottom: 0; }
+    .wartung-contact span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+    .wartung-contact a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .wartung-contact a:hover { color: var(--accent); }
+    .wartung-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      margin-top: 1.25rem;
+      padding: 0.9rem 1.5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #040407;
+      background: var(--gradient);
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .wartung-cta:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+    .wartung-footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .wartung-footer strong { color: var(--text); font-weight: 500; }
+  </style>
+</head>
+<body>
+  <main class="wartung">
+    <img src="assets/logo.png" alt="LYNIQ Media" class="wartung-logo" width="180" height="auto" />
+    <p class="wartung-badge">Beratung verfügbar</p>
+    <h1>Website im <span>Umbau</span></h1>
+    <p class="wartung-lead">
+      Wir arbeiten an einer neuen Website. In der Zwischenzeit sind wir für Sie da –
+      kostenlose Erstberatung zu KI-Systemen und Automatisierung für den Mittelstand.
+    </p>
+    <div class="wartung-card">
+      <h2>Kontakt &amp; Beratung</h2>
+      <ul class="wartung-contact">
+        <li>
+          <span>E-Mail</span>
+          <a href="mailto:info@lyniqmedia.com">info@lyniqmedia.com</a>
+        </li>
+        <li>
+          <span>Telefon</span>
+          <a href="tel:+4915175007219">+49 1517 5007219</a>
+        </li>
+        <li>
+          <span>WhatsApp</span>
+          <a href="https://wa.me/4915175007219" target="_blank" rel="noopener noreferrer">Nachricht senden</a>
+        </li>
+      </ul>
+      <a href="mailto:info@lyniqmedia.com?subject=Erstgespr%C3%A4ch%20anfragen" class="wartung-cta">Kostenloses Erstgespräch anfragen</a>
+    </div>
+    <p class="wartung-footer">
+      <strong>LYNIQ Media</strong> · Leon Wenke · KI-Systeme für den Mittelstand
+    </p>
+  </main>
+</body>
+</html>

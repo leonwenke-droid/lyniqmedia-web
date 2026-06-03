@@ -2,11 +2,7 @@
  * robots.txt – serverseitig ausgeliefert, garantiert erreichbar
  */
 const robots = `User-agent: *
-Allow: /
-
-Sitemap: https://lyniqmedia.com/sitemap.xml
-
-Disallow: /api/
+Disallow: /
 `;
 
 module.exports = (req, res) => {
